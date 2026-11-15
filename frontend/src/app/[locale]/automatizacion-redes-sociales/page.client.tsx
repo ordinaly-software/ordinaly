@@ -232,6 +232,8 @@ export default function AutomatizacionRedesSocialesPage() {
 
       <HowItWorksVideoSection
         title={content.sectionTitles?.howItWorks}
+        videoUrl="https://www.youtube.com/watch?v=tQ4VBxfKrys"
+        thumbnailSrc="/static/automatizacion-redes-sociales/video_thumbnail.webp"
         steps={content.steps ?? []}
       />
 

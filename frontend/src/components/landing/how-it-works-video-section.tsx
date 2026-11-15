@@ -19,6 +19,7 @@ type HowItWorksVideoSectionProps = {
   body?: ReactNode[];
   steps?: HowItWorksStep[];
   videoUrl?: string;
+  shortUrl?: string;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
   className?: string;
@@ -30,7 +31,8 @@ export function HowItWorksVideoSection({
   body,
   steps,
   videoUrl = DEFAULT_VIDEO_URL,
-  thumbnailSrc = DEFAULT_THUMBNAIL_SRC,
+  shortUrl,
+  thumbnailSrc,
   thumbnailAlt,
   className,
   compactTimeline = true,
@@ -51,7 +53,9 @@ export function HowItWorksVideoSection({
             className="w-full"
             animationStyle="from-center"
             videoUrl={videoUrl}
-            thumbnailSrc={thumbnailSrc}
+            shortUrl={shortUrl}
+            // Custom thumbnail only for the placeholder; real videos use their YouTube thumbnail.
+            thumbnailSrc={thumbnailSrc ?? (videoUrl === DEFAULT_VIDEO_URL ? DEFAULT_THUMBNAIL_SRC : undefined)}
             thumbnailAlt={thumbnailAlt ?? (typeof resolvedTitle === "string" ? resolvedTitle : defaultTitle)}
           />
         </div>

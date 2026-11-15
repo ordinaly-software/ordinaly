@@ -299,7 +299,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
         </div>
       </section>
 
-      <HowItWorksVideoSection title={content.sectionTitles?.howItWorks} steps={content.howItWorksSteps} />
+      <HowItWorksVideoSection title={content.sectionTitles?.howItWorks} videoUrl="https://www.youtube.com/watch?v=BydOXJ-Ojdk" thumbnailSrc="/static/automatizaciones-personalizadas-empresas-n8n/video_thumbnail.webp" steps={content.howItWorksSteps} />
 
       {/* WHAT IS N8N */}
       <section className="py-24 px-6 bg-white dark:bg-neutral-900">

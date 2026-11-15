@@ -28,6 +28,8 @@ type AnimationStyle =
 interface HeroVideoProps {
   animationStyle?: AnimationStyle;
   videoUrl: string;
+  /** Vertical (Shorts) version played instead of `videoUrl` on mobile viewports. */
+  shortUrl?: string;
   thumbnailSrc?: string;
   thumbnailAlt?: string;
   title?: string;
@@ -97,6 +99,7 @@ function PlayGlyph() {
 export function HeroVideoDialog({
   animationStyle = "from-center",
   videoUrl,
+  shortUrl,
   thumbnailSrc,
   thumbnailAlt = "Video thumbnail",
   title = "Video player",
@@ -104,6 +107,7 @@ export function HeroVideoDialog({
   className,
 }: HeroVideoProps) {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [playShort, setPlayShort] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const selectedAnimation = animationVariants[animationStyle];
@@ -111,14 +115,22 @@ export function HeroVideoDialog({
   const canLoadVideo = allowsThirdParty(cookiePreferences);
 
   const youtubeData = useMemo(() => extractYoutubeData(videoUrl), [videoUrl]);
+  const shortData = useMemo(() => extractYoutubeData(shortUrl), [shortUrl]);
   const resolvedThumbnail =
     thumbnailSrc ??
     (youtubeData ? getYoutubeThumbnail(youtubeData) : undefined);
 
   if (!youtubeData || !resolvedThumbnail) return null;
 
-  const embedSrc = `${getYoutubeEmbedUrl(youtubeData)}?autoplay=1&playsinline=1&enablejsapi=1&rel=0`;
-  const watchUrl = getYoutubeWatchUrl(youtubeData);
+  const playingData = (playShort && shortData) || youtubeData;
+  const isVertical = playingData !== youtubeData;
+  const embedSrc = `${getYoutubeEmbedUrl(playingData)}?autoplay=1&playsinline=1&enablejsapi=1&rel=0`;
+  const watchUrl = getYoutubeWatchUrl(playingData);
+
+  const openModal = () => {
+    setPlayShort(!!shortData && window.matchMedia("(max-width: 767px)").matches);
+    setIsVideoOpen(true);
+  };
 
   const closeModal = () => setIsVideoOpen(false);
 
@@ -133,14 +145,14 @@ export function HeroVideoDialog({
         type="button"
         aria-label={playLabel}
         className="group relative flex w-full cursor-pointer border-0 bg-transparent p-0"
-        onClick={() => setIsVideoOpen(true)}
+        onClick={openModal}
       >
         <img
           src={resolvedThumbnail}
           alt={thumbnailAlt}
           width={1920}
           height={1080}
-          className="w-full rounded-lg border shadow-lg transition-all duration-200 ease-out group-hover:brightness-[0.8]"
+          className="aspect-video w-full rounded-lg border object-cover shadow-lg transition-all duration-200 ease-out group-hover:brightness-[0.8]"
         />
         <div className="absolute inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all duration-200 ease-out group-hover:scale-100">
           <PlayGlyph />
@@ -171,7 +183,12 @@ export function HeroVideoDialog({
                 <motion.div
                   {...selectedAnimation}
                   transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                  className="relative mx-4 aspect-video w-full max-w-6xl md:mx-0"
+                  className={cn(
+                    "relative mx-4 md:mx-0",
+                    isVertical
+                      ? "aspect-[9/16] w-[min(calc(100vw-2rem),45dvh)]"
+                      : "aspect-video w-full max-w-6xl",
+                  )}
                 >
                   <motion.button className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black">
                     <XIcon className="size-5" />

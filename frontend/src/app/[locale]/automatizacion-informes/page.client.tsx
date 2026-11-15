@@ -160,6 +160,7 @@ export default function AutomatizacionInformes() {
         <HowItWorksVideoSection
         title={content.sectionTitles?.howItWorks}
         videoUrl={content.howItWorks?.videoUrl}
+        thumbnailSrc="/static/automatizacion-informes/video_thumbnail.webp"
         body={content.howItWorks?.paragraphs?.map((p: string, i: number) => (
           <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
             {p}
