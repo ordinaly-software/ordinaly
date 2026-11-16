@@ -2,6 +2,7 @@
 
 import { useMessages } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
   IconBrandGmail,
@@ -17,7 +18,7 @@ import {
   IconFileTypeXls,
   IconWebhook,
   IconClock,
-  IconArrowUpRight,
+  IconArrowRight,
 } from "@tabler/icons-react";
 import { Mail, Phone, Bell } from "lucide-react";
 import Footer from "@/components/ui/footer";
@@ -277,17 +278,15 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                 <span className="text-sm">{content.secondaryCtaLabel}</span>
               </a>
 
-              <a
-                href="https://n8n.io"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/blog?category=automatizacion"
                 className="flex flex-col items-start justify-center gap-1.5 rounded-xl px-4 py-3.5 font-semibold bg-white text-neutral-900 shadow-lg transition hover:scale-[1.03] hover:bg-neutral-100"
               >
                 <IconN8n size={18} />
                 <span className="flex items-center gap-1 text-sm">
                   {content.n8nCtaLabel}
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -318,11 +317,11 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
               )}
             </p>
             <Button variant="outline" size="lg" className="mt-8 gap-2" asChild>
-              <a href="https://n8n.io" target="_blank" rel="noopener noreferrer">
+              <Link href="/blog?category=automatizacion">
                 <IconN8n size={20} />
                 {content.n8nCtaLabel}
-                <IconArrowUpRight size={18} />
-              </a>
+                <IconArrowRight size={18} />
+              </Link>
             </Button>
           </div>
           <div className="flex justify-center md:justify-end">

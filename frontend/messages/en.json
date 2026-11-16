@@ -2321,7 +2321,7 @@
       "description": "We design custom automations with n8n and open-source software: retries, queues, logs and per-node metrics for processes that don't fit a standard tool.",
       "heroCtaLabel": "Tell us your case",
       "secondaryCtaLabel": "Chat on WhatsApp",
-      "n8nCtaLabel": "Learn more on n8n",
+      "n8nCtaLabel": "Learn more about n8n",
       "secondaryCtaHref": "https://wa.me/34626270806",
       "sectionTitles": {
         "whatIsN8N": "What is n8n?",
