@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,8 @@ type ContactFormProps = {
   recaptchaAction?: string;
   recaptchaBadgeId?: string;
   showCommitmentNote?: boolean;
+  /** Where to go after a successful submission, instead of showing the inline success message. */
+  redirectTo?: string;
 };
 
 export default function ContactForm({
@@ -44,8 +47,10 @@ export default function ContactForm({
   recaptchaAction = "contact_form",
   recaptchaBadgeId = "recaptcha-badge-contact",
   showCommitmentNote = false,
+  redirectTo,
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
+  const router = useRouter();
   const uid = useId();
   const formRef = useRef<HTMLFormElement | null>(null);
   const prefixButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -141,6 +146,11 @@ export default function ContactForm({
           type: "error",
           message,
         });
+        return;
+      }
+
+      if (redirectTo) {
+        router.push(redirectTo);
         return;
       }
 

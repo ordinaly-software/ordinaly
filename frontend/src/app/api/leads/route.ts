@@ -9,6 +9,7 @@ const LEAD_RECAPTCHA_ACTIONS = [
   "faq_contact_form",
   "contact_page_form",
   "blog_contact_form",
+  "campaign_form",
 ] as const;
 
 const MAX_LENGTHS = { name: 100, email: 254, phone: 20, company: 150, details: 5000, page: 500 } as const;

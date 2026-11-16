@@ -9,6 +9,7 @@ import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
 import HashScroll from "@/components/ui/hash-scroll";
 import NewsletterPrompt from "@/components/ui/newsletter-prompt";
+import { HideOnCampaign } from "@/components/campaign/campaign-chrome";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
@@ -197,11 +198,15 @@ export default async function RootLayout({
                   <ServiceWorkerRegistrar />
                   <AutoKeywords />
                   <HashScroll />
-                  <Navbar />
+                  <HideOnCampaign>
+                    <Navbar />
+                  </HideOnCampaign>
                   <main id="main-content">{children}</main>
                   <CookieConsent />
                   <BackToTopButton />
-                  <NewsletterPrompt />
+                  <HideOnCampaign>
+                    <NewsletterPrompt />
+                  </HideOnCampaign>
                 </SiteDataProvider>
               </EmailVerificationProvider>
             </ThemeProvider>
