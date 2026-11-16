@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -50,7 +49,6 @@ export default function ContactForm({
   redirectTo,
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
-  const router = useRouter();
   const uid = useId();
   const formRef = useRef<HTMLFormElement | null>(null);
   const prefixButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -150,7 +148,8 @@ export default function ContactForm({
       }
 
       if (redirectTo) {
-        router.push(redirectTo);
+        // Full page load (not router.push) so tag managers count it as a page view.
+        window.location.assign(redirectTo);
         return;
       }
 

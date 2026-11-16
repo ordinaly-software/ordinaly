@@ -6,7 +6,8 @@ import ContactForm from "@/components/ui/contact-form.client";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { RichText } from "@/components/ui/highlight";
-import { CampaignFooter, CampaignHeader } from "@/components/campaign/campaign-chrome";
+import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
 // Ad campaign version of /implantacion-odoo: same copy and components,
@@ -37,7 +38,8 @@ export default function OdooCampaign() {
 
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
-      <CampaignHeader />
+      <GoogleTagManager />
+      <CampaignNavbar />
 
       {/* HERO */}
       <section id="inicio" className="scroll-mt-24 relative w-full overflow-x-clip pt-20 pb-14 md:pt-24 md:pb-20 px-6 bg-white dark:bg-neutral-900 transition-colors">

@@ -18,8 +18,8 @@ export function HideOnCampaign({ children }: { children: ReactNode }) {
   return isCampaignPath(usePathname()) ? null : <>{children}</>;
 }
 
-/** Logo-only header: no links, so visitors stay on the page. */
-export function CampaignHeader() {
+/** Logo-only navbar: no links, so visitors stay on the page. */
+export function CampaignNavbar() {
   return (
     <header className="border-b border-[--color-border-subtle] bg-[--swatch--ivory-light] dark:border-[--color-border-strong] dark:bg-[--swatch--slate-dark]">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-2.5 px-6">

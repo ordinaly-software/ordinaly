@@ -7,7 +7,8 @@ import ContactForm from "@/components/ui/contact-form.client";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { RichText } from "@/components/ui/highlight";
-import { CampaignFooter, CampaignHeader } from "@/components/campaign/campaign-chrome";
+import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
 // Ad campaign version of /auditoria-cumplimiento-ia: same copy and components,
@@ -64,7 +65,8 @@ export default function AuditoriaCampaign() {
 
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
-      <CampaignHeader />
+      <GoogleTagManager />
+      <CampaignNavbar />
 
       {/* HERO */}
       <section id="inicio" className="scroll-mt-24 px-4 pt-4 md:px-8 xl:px-12">

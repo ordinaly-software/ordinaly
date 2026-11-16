@@ -9,7 +9,7 @@ import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
 import HashScroll from "@/components/ui/hash-scroll";
 import NewsletterPrompt from "@/components/ui/newsletter-prompt";
-import { HideOnCampaign } from "@/components/campaign/campaign-chrome";
+import { HideOnCampaign } from "@/components/campaign/campaign-navbar-footer";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";

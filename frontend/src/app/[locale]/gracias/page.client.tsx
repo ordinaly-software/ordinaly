@@ -3,7 +3,8 @@
 import { useMessages } from "next-intl";
 import Link from "next/link";
 import { CircleCheck } from "lucide-react";
-import { CampaignFooter, CampaignHeader } from "@/components/campaign/campaign-chrome";
+import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 
 export default function GraciasPage({ origen }: { origen?: string }) {
   const messages = useMessages() as any;
@@ -12,7 +13,8 @@ export default function GraciasPage({ origen }: { origen?: string }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-neutral-900">
-      <CampaignHeader />
+      <GoogleTagManager />
+      <CampaignNavbar />
       <section className="flex flex-1 items-center px-6 py-20">
         <div className="mx-auto max-w-xl text-center">
           <CircleCheck className="mx-auto h-14 w-14 text-clay" aria-hidden />

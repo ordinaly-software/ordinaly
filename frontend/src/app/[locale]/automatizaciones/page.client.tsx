@@ -8,7 +8,8 @@ import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { AnimatedList } from "@/components/ui/animated-list";
-import { CampaignFooter, CampaignHeader } from "@/components/campaign/campaign-chrome";
+import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
+import GoogleTagManager from "@/components/analytics/google-tag-manager";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
 // Ad campaign version of /automatizaciones-personalizadas-empresas-n8n: same copy and components,
@@ -134,7 +135,8 @@ export default function AutomatizacionesCampaign() {
 
   return (
     <div className="relative bg-white dark:bg-neutral-900">
-      <CampaignHeader />
+      <GoogleTagManager />
+      <CampaignNavbar />
 
       {/* HERO — always black with the n8n dot grid, so it opts into the dark palette
           (`dark` class) regardless of the site theme. */}
