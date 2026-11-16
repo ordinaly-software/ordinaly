@@ -3,6 +3,8 @@ import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import SharePostButtons from '@/components/blog/share-post-buttons';
 import { buildCourseLink } from '@/utils/past-course';
 import { Button } from '@/components/ui/button';
+import { ContactMenu } from "@/components/ui/contact-menu";
+import type { getPastCourseContact } from "@/utils/past-course";
 import { Info, MapPin, Users, Clock, Euro, GraduationCap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -32,7 +34,7 @@ interface Props {
   onEnroll: () => void;
   onCancel: () => void;
   onAuthRequired: () => void;
-  onRequestEdition: () => void;
+  requestEditionContact: ReturnType<typeof getPastCourseContact>;
   requestEditionLabel: string;
   showRequestEdition: boolean;
 }
@@ -49,7 +51,7 @@ const CourseSidebar: React.FC<Props> = ({
   onEnroll,
   onCancel,
   onAuthRequired,
-  onRequestEdition,
+  requestEditionContact,
   requestEditionLabel,
   showRequestEdition,
 }) => {
@@ -179,13 +181,17 @@ const CourseSidebar: React.FC<Props> = ({
 
         {hasEnded && showRequestEdition && (
           <div className="hidden lg:block">
-            <Button
-              onClick={onRequestEdition}
-              variant="flame"
-              className="w-full shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              {requestEditionLabel}
-            </Button>
+            <ContactMenu whatsappHref={requestEditionContact.whatsappHref} email={requestEditionContact.email}>
+              {({ buttonProps }) => (
+                <Button
+                  {...buttonProps}
+                  variant="flame"
+                  className="w-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  {requestEditionLabel}
+                </Button>
+              )}
+            </ContactMenu>
           </div>
         )}
       </div>

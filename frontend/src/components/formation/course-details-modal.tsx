@@ -11,7 +11,7 @@ import SharePostButtons from '@/components/blog/share-post-buttons';
 import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
-import { openPastCourseWhatsApp, buildCourseLink } from '@/utils/past-course';
+import { getPastCourseContact, buildCourseLink } from '@/utils/past-course';
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import Image from "next/image";
 
@@ -251,9 +251,7 @@ const CourseDetailsModal = ({
     return weekdays.map(day => names[day]).join(', ');
   };
 
-  const handleRequestEdition = () => {
-    openPastCourseWhatsApp(course, formationT);
-  };
+  const requestEditionContact = getPastCourseContact(course, formationT);
 
   const handleEnrollClick = () => {
     if (!isAuthenticated) {
@@ -326,7 +324,7 @@ const CourseDetailsModal = ({
           onEnroll={onEnroll}
           showRequestEdition={hasEnded}
           hasEnded={hasEnded}
-          onRequestEdition={handleRequestEdition}
+          requestEditionContact={requestEditionContact}
           requestEditionLabel={formationT('wantNewEdition')}
           t={t}
         />
@@ -509,7 +507,7 @@ const CourseDetailsModal = ({
               onEnroll={onEnroll}
               onCancel={onCancel}
               onAuthRequired={onAuthRequired}
-              onRequestEdition={handleRequestEdition}
+              requestEditionContact={requestEditionContact}
               requestEditionLabel={formationT('wantNewEdition')}
               showRequestEdition={hasEnded}
             />

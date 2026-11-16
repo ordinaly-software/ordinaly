@@ -123,6 +123,7 @@ export default function AutomatizacionRedesSocialesPage() {
           ) : undefined,
           ctaLabel: pricing.ctaLabel,
           href: pricing.ctaHref,
+          contactMenu: true,
         },
       ]
     : [];

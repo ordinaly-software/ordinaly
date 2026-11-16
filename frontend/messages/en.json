@@ -171,6 +171,7 @@
       "enrollCta": "Enroll",
       "wantNewEdition": "I want a new edition",
       "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
+      "pastCourseEmailSubject": "New edition of the course {course}",
       "viewDetails": "View details",
       "viewAllCourses": "View all courses",
       "catalogTitle": "Training catalog",
@@ -267,7 +268,13 @@
     "mainNavigation": "Main navigation",
     "backToHome": "Back to home",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "floatingContact": {
+      "whatsappDetail": "Quick reply",
+      "call": "Call",
+      "email": "Email",
+      "close": "Close"
+    }
   },
   "logoutModal": {
     "title": "Confirm sign out",
@@ -1347,6 +1354,7 @@
     "finished": "Finished",
     "wantNewEdition": "I want a new edition",
     "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
+    "pastCourseEmailSubject": "New edition of the course {course}",
     "cta": {
       "title": "Ready to advance your career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",

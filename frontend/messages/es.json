@@ -172,6 +172,7 @@
       "enrollCta": "Inscríbete",
       "wantNewEdition": "Quiero una nueva edición",
       "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
+      "pastCourseEmailSubject": "Nueva edición del curso {course}",
       "viewDetails": "Ver detalles",
       "viewAllCourses": "Ver todos los cursos",
       "catalogTitle": "Catálogo de formación",
@@ -267,7 +268,13 @@
     "mainNavigation": "Navegación principal",
     "backToHome": "Volver al inicio",
     "next": "Siguiente",
-    "previous": "Anterior"
+    "previous": "Anterior",
+    "floatingContact": {
+      "whatsappDetail": "Respuesta rápida",
+      "call": "Llamar",
+      "email": "Email",
+      "close": "Cerrar"
+    }
   },
   "logoutModal": {
     "title": "Confirmar cerrar sesión",
@@ -1347,6 +1354,7 @@
     "finished": "Finalizado",
     "wantNewEdition": "Quiero una nueva edición",
     "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
+    "pastCourseEmailSubject": "Nueva edición del curso {course}",
     "cta": {
       "title": "¿Listo para avanzar en tu carrera?",
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",

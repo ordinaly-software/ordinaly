@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen, UserCheck, UserX } from "lucide-react";
-import { openPastCourseWhatsApp, cleanCourseTitle } from "@/utils/past-course";
+import { getPastCourseContact, cleanCourseTitle } from "@/utils/past-course";
+import { ContactMenu } from "@/components/ui/contact-menu";
 
 // Structural shape only — kept independent from the Course type used by each
 // caller (hooks/useCourses vs utils/pdf-generator) so both can pass their data as-is.
@@ -110,10 +111,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     return { text: t("available"), variant: "secondary" as const };
   })();
 
-  const handleRequestEdition = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    openPastCourseWhatsApp(course, t);
-  };
+  const requestEditionContact = getPastCourseContact(course, t);
 
   const handleViewDetailsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -126,12 +124,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         "w-full h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 rounded-3xl group",
         onViewDetails ? "cursor-pointer hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1" : "",
         highlightUpcoming ? "ring-2 ring-clay shadow-2xl z-10" : "",
-        isPastCourse ? "opacity-70" : "",
       ].join(" ")}
       style={highlightUpcoming ? { boxShadow: "0 0 0 3px var(--swatch--clay), 0 8px 15px 0 var(--swatch--clay)44" } : {}}
       onClick={onViewDetails ? () => onViewDetails() : undefined}
     >
-      <CardHeader className="pb-2">
+      <CardHeader className={isPastCourse ? "pb-2 opacity-70" : "pb-2"}>
         <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4 bg-oat/40 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_40%,transparent)]">
           {!imageError ? (
             <Image
@@ -199,7 +196,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       </CardHeader>
 
       <CardContent className="pt-0 flex flex-col flex-1">
-        <div className="space-y-4 flex-1 flex flex-col">
+        {/* Past courses dim their info, but keep the action buttons at full opacity */}
+        <div className={`space-y-4 flex-1 flex flex-col${isPastCourse ? " opacity-70" : ""}`}>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium">
               <Calendar className="w-4 h-4 flex-shrink-0" />
@@ -265,13 +263,20 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         <div className="flex flex-col gap-3 mt-6">
           {isPastCourse ? (
             <>
-              <Button
-                variant="flame"
-                className="w-full shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
-                onClick={handleRequestEdition}
-              >
-                <span>{t("wantNewEdition")}</span>
-              </Button>
+              {/* Keep clicks inside the menu from opening the course details */}
+              <div onClick={(e) => e.stopPropagation()}>
+                <ContactMenu whatsappHref={requestEditionContact.whatsappHref} email={requestEditionContact.email}>
+                  {({ buttonProps }) => (
+                    <Button
+                      variant="flame"
+                      className="w-full shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+                      {...buttonProps}
+                    >
+                      <span>{t("wantNewEdition")}</span>
+                    </Button>
+                  )}
+                </ContactMenu>
+              </div>
               <Button
                 variant="outline"
                 className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_70%,transparent)]"
