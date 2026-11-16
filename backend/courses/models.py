@@ -51,7 +51,7 @@ class Course(models.Model):
         )
     )
     subtitle = models.CharField(max_length=200, blank=True, default="")
-    description = models.TextField(max_length=2000)
+    description = models.TextField(max_length=10000)
     bonified_course_link = models.URLField(
         max_length=500,
         blank=True,

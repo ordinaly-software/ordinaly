@@ -411,8 +411,8 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-      if (formData.description.length > 2000) {
-        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 2000 })});
+      if (formData.description.length > 10000) {
+        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 10000 })});
         return;
       }
       const bonifiedLink = (formData.bonified_course_link ?? "").trim();
