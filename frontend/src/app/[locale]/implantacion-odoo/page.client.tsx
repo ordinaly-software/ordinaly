@@ -362,42 +362,44 @@ export default function ImplantacionOdoo() {
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
-        <FaqAccordion
-          className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
-          title={content.sectionTitles?.technologyFaqs}
-          description={content.sectionTitles?.technologyFaqsSubtitle}
-          items={content.technologyFaqs.map(
-            (faq: { tag: string; question: string; answer: string; answerEmphasis?: string; links?: { label: string; href: string }[] }) => ({
-              question: faq.question,
-              tag: faq.tag,
-              answer: faq.answerEmphasis ? (
-                <>
-                  {faq.answer}
-                  <strong>{faq.answerEmphasis}</strong>
-                </>
-              ) : faq.links?.length ? (
-                <>
-                  {faq.answer}
-                  <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                    {faq.links.map((link, i) => (
-                      <a
-                        key={i}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-clay hover:underline"
-                      >
-                        👉 {link.label}
-                      </a>
-                    ))}
-                  </span>
-                </>
-              ) : (
-                faq.answer
-              ),
-            }),
-          )}
-        />
+        <div id="preguntas-frecuentes" className="scroll-mt-24">
+          <FaqAccordion
+            className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
+            title={content.sectionTitles?.technologyFaqs}
+            description={content.sectionTitles?.technologyFaqsSubtitle}
+            items={content.technologyFaqs.map(
+              (faq: { tag: string; question: string; answer: string; answerEmphasis?: string; links?: { label: string; href: string }[] }) => ({
+                question: faq.question,
+                tag: faq.tag,
+                answer: faq.answerEmphasis ? (
+                  <>
+                    {faq.answer}
+                    <strong>{faq.answerEmphasis}</strong>
+                  </>
+                ) : faq.links?.length ? (
+                  <>
+                    {faq.answer}
+                    <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                      {faq.links.map((link, i) => (
+                        <a
+                          key={i}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-clay hover:underline"
+                        >
+                          👉 {link.label}
+                        </a>
+                      ))}
+                    </span>
+                  </>
+                ) : (
+                  faq.answer
+                ),
+              }),
+            )}
+          />
+        </div>
       )}
 
       {/* FORM */}
