@@ -149,7 +149,9 @@ export default function AuditoriaCumplimientoIa() {
 
       {/* ARTICLE 50 */}
       <section id="articulo-50" className="scroll-mt-24 py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-16">
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:gap-16">
+          {/* Own grid so the sticky column stops before the full-width card below. */}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-16">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
               {content.sectionTitles.article50}
@@ -182,8 +184,9 @@ export default function AuditoriaCumplimientoIa() {
               ))}
             </ul>
           </div>
+          </div>
           {/* The last use case spans the full width of the section, below both columns. */}
-          <ul className="lg:col-span-2">
+          <ul>
             <UseCaseCard
               useCase={useCases[useCases.length - 1]}
               Icon={USE_CASE_ICONS[useCases.length - 1]}

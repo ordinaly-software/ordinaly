@@ -2039,6 +2039,9 @@
     "faq": {
       "title": "Frequently asked questions"
     },
+    "video": {
+      "title": "Our mission and vision"
+    },
     "principles": {
       "title": "Ordinaly's principles",
       "intro": "Ten ideas that shape how we understand, decide, and build.",
@@ -2571,7 +2574,7 @@
         "technologyFaqs": "Frequently asked questions"
       },
       "howItWorks": {
-        "videoUrl": "https://www.youtube.com/watch?v=qLKfe3yukGs",
+        "videoUrl": "https://www.youtube.com/watch?v=HL39_ugbCL8",
         "paragraphs": [
           "This service automates the entire flow: from collecting the financial reports to sending them in bulk by email to each owner, using the cloud, the CRM or whichever document system the client already uses.",
           "Each delivery is properly archived and classified, ensuring traceability, compliance and easy future lookup. In addition, after every sending cycle the administrator receives a summary email with the status of the process: reports sent, possible incidents and execution confirmation."
@@ -3013,7 +3016,7 @@
         "videoCaptionName": "Antonio Macías Ferrera",
         "videoCaptionRole": "CTO software engineer & co-founder",
         "videoCaptionText": "We build modern web applications that combine the best of a website and an app, optimized for performance, SEO and user experience. The goal is to deliver services in a modern, fast and accessible way without relying on native apps.",
-        "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
+        "videoUrl": "https://youtu.be/WPgLFodfAm8"
       },
       "sectionTitles": {
         "whatIsPWA": "What is a PWA?",

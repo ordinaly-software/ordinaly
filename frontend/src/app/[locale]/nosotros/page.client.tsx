@@ -9,6 +9,7 @@ import { WorkWithUsSection } from "@/components/about/work-with-us";
 import { PrinciplesSection } from "@/components/about/principles";
 import { AboutHero } from "@/components/about/about-hero";
 import { Linkedin } from "lucide-react";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,
@@ -90,6 +91,22 @@ export default function UsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Mission & vision */}
+      <section className="px-4 pt-14 sm:px-6 md:pt-24 lg:px-8" id="mission">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-8 text-center font-serif text-3xl font-normal text-slate-dark dark:text-ivory-light md:text-4xl">
+            {t("video.title")}
+          </h2>
+          <HeroVideoDialog
+            animationStyle="from-center"
+            videoUrl="https://www.youtube.com/watch?v=B2Qc8cVY5wo"
+            thumbnailSrc="/static/nosotros/video_thumbnail.webp"
+            thumbnailAlt={t("video.title")}
+            title={t("video.title")}
+          />
         </div>
       </section>
 

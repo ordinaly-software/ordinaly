@@ -157,6 +157,9 @@ export default function AutomatizacionFacturas() {
       <div id="como-funciona" className="scroll-mt-24">
         <HowItWorksVideoSection
         title={content.sectionTitles?.howItWorks}
+        videoUrl="https://www.youtube.com/watch?v=8-aFfPYiPo4"
+        shortUrl="https://www.youtube.com/shorts/5XrFrQdC5_s"
+        thumbnailSrc="/static/automatizacion-facturas/video_thumbnail.webp"
         steps={content.steps ?? []}
       />
       </div>

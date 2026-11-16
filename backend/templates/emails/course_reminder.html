@@ -1,6 +1,7 @@
 {% extends "emails/base.html" %}
 {% block title %}Recordatorio {{ hours_before }}h - {{ course.title }}{% endblock %}
 {% block preheader %}Faltan {{ hours_before }} horas para la próxima sesión de {{ course.title }}.{% endblock %}
+{% block hero %}{% if image_url %}<tr><td><img src="{{ image_url }}" alt="{{ course.title }}" width="1000" style="width:100%;height:auto;" /></td></tr>{% endif %}{% endblock %}
 {% block headline %}Recordatorio de curso{% endblock %}
 {% block intro %}Hola {{ user_name }}, faltan {{ hours_before }} horas para la próxima sesión de <strong>{{ course.title }}</strong>.{% endblock %}
 {% block body %}

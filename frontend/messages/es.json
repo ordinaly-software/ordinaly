@@ -2039,6 +2039,9 @@
     "faq": {
       "title": "Preguntas frecuentes"
     },
+    "video": {
+      "title": "Nuestra misión y visión"
+    },
     "principles": {
       "title": "Principios de Ordinaly",
       "intro": "Diez ideas que orientan cómo trabajamos y qué valor aportamos a nuestros clientes y a la sociedad",
@@ -2571,7 +2574,7 @@
         "technologyFaqs": "Preguntas frecuentes"
       },
       "howItWorks": {
-        "videoUrl": "https://www.youtube.com/watch?v=qLKfe3yukGs",
+        "videoUrl": "https://www.youtube.com/watch?v=HL39_ugbCL8",
         "paragraphs": [
           "Con este servicio se automatiza todo el flujo: desde la recogida de información hasta el envío, utilizando la nube, el CRM o el sistema documental que ya use el cliente.",
           "Cada envío queda correctamente archivado y clasificado, garantizando trazabilidad, cumplimiento y facilidad de consulta futura. Además, tras cada ciclo de envíos, el administrador recibe un correo resumen."
@@ -3013,7 +3016,7 @@
         "videoCaptionName": "Antonio Macías Ferrera",
         "videoCaptionRole": "CTO software engineer & co-founder",
         "videoCaptionText": "Desarrollamos aplicaciones web modernas que combinan lo mejor de una página web y una app, optimizadas para rendimiento, SEO y experiencia de usuario. El objetivo es ofrecer servicios de forma moderna, rápida y accesible sin depender de apps nativas.",
-        "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
+        "videoUrl": "https://youtu.be/WPgLFodfAm8"
       },
       "sectionTitles": {
         "whatIsPWA": "¿Qué es una PWA?",
