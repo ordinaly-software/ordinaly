@@ -524,10 +524,15 @@ const AdminCoursesTab = () => {
       formDataToSend.append('end_time', formData.end_time);
       formDataToSend.append('periodicity', formData.periodicity);
       formDataToSend.append('timezone', formData.timezone);
-      formDataToSend.append('weekdays', JSON.stringify(formData.weekdays));
-      if (formData.week_of_month) {
-        formDataToSend.append('week_of_month', formData.week_of_month.toString());
-      }
+      // Only send pattern fields relevant to the selected periodicity so stale
+      // values (hidden in the form) don't alter the generated schedule.
+      const usesWeekdays = formData.periodicity === 'weekly' || formData.periodicity === 'biweekly';
+      formDataToSend.append('weekdays', JSON.stringify(usesWeekdays ? formData.weekdays : []));
+      // Always send week_of_month; an empty value clears it on update (PUT).
+      formDataToSend.append(
+        'week_of_month',
+        formData.periodicity === 'monthly' && formData.week_of_month ? formData.week_of_month.toString() : ''
+      );
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
       formDataToSend.append('max_attendants', String(formData.max_attendants));

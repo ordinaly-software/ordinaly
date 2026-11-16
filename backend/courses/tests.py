@@ -2507,3 +2507,112 @@ class EnrollmentAdminFormTest(CourseImageCleanupTestMixin, TestCase):
         self.assertIsNone(instance.pk)
         self.assertEqual(instance.user, self.user)
         self.assertEqual(instance.course, self.course)
+
+
+class RecurrencePatternRegressionTest(TestCase):
+    """Regression tests for recurrence generation used by calendar exports."""
+
+    def _course(self, **kwargs):
+        defaults = {
+            'title': 'Recurring course',
+            'description': 'Recurring course',
+            'start_time': time(10, 0),
+            'end_time': time(12, 0),
+            'max_attendants': 10,
+        }
+        defaults.update(kwargs)
+        return Course(**defaults)
+
+    def test_biweekly_multiple_weekdays_starting_mid_week(self):
+        # 2125-12-05 is a Wednesday; Monday of the following week must be skipped
+        course = self._course(
+            periodicity='biweekly',
+            start_date=date(2125, 12, 5),
+            end_date=date(2126, 3, 1),
+            weekdays=[0, 2],
+        )
+        self.assertEqual(course.get_next_occurrences(limit=5), [
+            date(2125, 12, 5),
+            date(2125, 12, 17),
+            date(2125, 12, 19),
+            date(2125, 12, 31),
+            date(2126, 1, 2),
+        ])
+
+    def test_weekly_interval_two_multiple_weekdays(self):
+        # 2125-12-06 is a Thursday
+        course = self._course(
+            periodicity='weekly',
+            interval=2,
+            start_date=date(2125, 12, 6),
+            end_date=date(2126, 3, 1),
+            weekdays=[1, 3],
+        )
+        self.assertEqual(course.get_next_occurrences(limit=4), [
+            date(2125, 12, 6),
+            date(2125, 12, 18),
+            date(2125, 12, 20),
+            date(2126, 1, 1),
+        ])
+
+    def test_weekly_weekdays_as_strings(self):
+        course = self._course(
+            periodicity='weekly',
+            start_date=date(2125, 12, 3),
+            end_date=date(2125, 12, 16),
+            weekdays=['0', '2'],
+        )
+        self.assertEqual(course.get_next_occurrences(), [
+            date(2125, 12, 3),
+            date(2125, 12, 5),
+            date(2125, 12, 10),
+            date(2125, 12, 12),
+        ])
+
+    def test_monthly_week_of_month_without_weekdays_uses_start_weekday(self):
+        # 2125-12-03 is the first Monday of December 2125
+        course = self._course(
+            periodicity='monthly',
+            start_date=date(2125, 12, 3),
+            end_date=date(2126, 4, 30),
+            week_of_month=1,
+        )
+        occurrences = course.get_next_occurrences()
+        self.assertEqual(len(occurrences), 5)
+        for occurrence in occurrences:
+            self.assertEqual(occurrence.weekday(), 0)
+            self.assertLessEqual(occurrence.day, 7)
+        self.assertEqual(course.formatted_schedule.split(' from ')[0], 'First week Monday of every month')
+
+    def test_monthly_week_of_month_respects_interval_and_ignores_stale_weekdays(self):
+        course = self._course(
+            periodicity='monthly',
+            interval=2,
+            start_date=date(2125, 12, 3),
+            end_date=date(2126, 6, 30),
+            week_of_month=1,
+            weekdays=[4],  # stale value from a previous weekly configuration
+        )
+        occurrences = course.get_next_occurrences()
+        self.assertEqual([o.month for o in occurrences], [12, 2, 4, 6])
+        for occurrence in occurrences:
+            self.assertEqual(occurrence.weekday(), 0)
+            self.assertLessEqual(occurrence.day, 7)
+
+    def test_ics_export_matches_occurrences(self):
+        course = self._course(
+            id=1,
+            periodicity='biweekly',
+            start_date=date(2125, 12, 5),
+            end_date=date(2125, 12, 31),
+            weekdays=[0, 2],
+            location='',
+        )
+        ics = course.get_calendar_export_data('ics')
+        starts = [line for line in ics.split('\n') if line.startswith('DTSTART:')]
+        self.assertEqual(starts, [
+            'DTSTART:21251205T100000',
+            'DTSTART:21251217T100000',
+            'DTSTART:21251219T100000',
+            'DTSTART:21251231T100000',
+        ])

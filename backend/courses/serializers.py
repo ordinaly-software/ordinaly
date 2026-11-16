@@ -125,7 +125,7 @@ class CourseSerializer(serializers.ModelSerializer):
         try:
             if not obj.weekdays:
                 return []
-            return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj.weekdays]
+            return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj._normalized_weekdays()]
         except Exception:
             return []
 

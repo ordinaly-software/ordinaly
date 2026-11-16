@@ -188,7 +188,7 @@ class Course(models.Model):
                 return "Weekly" if self.interval == 1 else f"Every {self.interval} weeks"
             return "Biweekly"
 
-        weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+        weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
         if self.periodicity != 'weekly':
             return f"Every other week on {', '.join(weekday_names)}"
         if self.interval == 1:
@@ -196,8 +196,8 @@ class Course(models.Model):
         return f"Every {self.interval} weeks on {', '.join(weekday_names)}"
 
     def _monthly_schedule_description(self):
-        if self.week_of_month is not None and self.weekdays:
-            weekday_name = self.WEEKDAY_CHOICES[self.weekdays[0]][1]
+        if self.week_of_month is not None and self.start_date:
+            weekday_name = self.WEEKDAY_CHOICES[self.start_date.weekday()][1]
             week_name = dict(self.WEEK_OF_MONTH_CHOICES)[self.week_of_month]
             return f"{week_name} {weekday_name} of every month"
         if self.interval == 1:
@@ -206,7 +206,7 @@ class Course(models.Model):
 
     def _custom_schedule_description(self):
         if self.weekdays:
-            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
             return f"Custom schedule: {', '.join(weekday_names)}"
         return "Custom schedule"
 
@@ -248,7 +248,7 @@ class Course(models.Model):
             description.append(f"Interval: Every {self.interval}")
 
         if self.weekdays:
-            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
             description.append(f"Weekdays: {', '.join(weekday_names)}")
 
         if self.week_of_month is not None:
@@ -338,38 +338,66 @@ class Course(models.Model):
 
         return None
 
+    def _normalized_weekdays(self):
+        """Return weekdays as a sorted list of unique ints (0=Monday..6=Sunday).
+
+        Values may arrive as strings (e.g. ["0", "2"]) depending on the input
+        source; invalid entries are ignored.
+        """
+        normalized = set()
+        for value in self.weekdays or []:
+            try:
+                weekday = int(value)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= weekday <= 6:
+                normalized.add(weekday)
+        return sorted(normalized)
+
+    def _interval_value(self):
+        return self.interval if self.interval and self.interval > 0 else 1
+
+    def _months_since_start(self, current_date):
+        return ((current_date.year - self.start_date.year) * 12 +
+                current_date.month - self.start_date.month)
+
     def _should_include_daily(self, current_date):
         days_diff = (current_date - self.start_date).days
-        return days_diff % self.interval == 0
+        return days_diff % self._interval_value() == 0
 
     def _should_include_weekly(self, current_date):
         """Check if current_date matches the weekly/biweekly recurrence pattern"""
-        if not self.weekdays:
-            if current_date.weekday() != self.start_date.weekday():
-                return False
-        elif current_date.weekday() not in self.weekdays:
+        weekdays = self._normalized_weekdays() or [self.start_date.weekday()]
+        if current_date.weekday() not in weekdays:
             return False
 
-        weeks_diff = (current_date - self.start_date).days // 7
-        interval_weeks = (2 if self.periodicity == 'biweekly' else 1) * self.interval
+        # Count whole calendar weeks (Monday-based) since the start week, so all
+        # selected weekdays of an active week are included together. Counting
+        # from start_date itself shifts weekdays before the start weekday into
+        # the wrong week (e.g. biweekly Mon+Wed starting on a Wednesday).
+        start_week = self.start_date - timedelta(days=self.start_date.weekday())
+        current_week = current_date - timedelta(days=current_date.weekday())
+        weeks_diff = (current_week - start_week).days // 7
+        interval_weeks = (2 if self.periodicity == 'biweekly' else 1) * self._interval_value()
         return weeks_diff % interval_weeks == 0
 
     def _should_include_monthly(self, current_date):
-        if self.week_of_month is not None and self.weekdays:
-            # Complex monthly pattern: e.g., "First Monday of every month"
+        if self._months_since_start(current_date) % self._interval_value() != 0:
+            return False
+        if self.week_of_month is not None:
+            # Complex monthly pattern: e.g., "First Monday of every month".
+            # The weekday comes from the start date: the admin UI does not
+            # expose weekdays for monthly courses, so stored weekdays may be
+            # stale values left over from a previous weekly configuration.
             return self._is_nth_weekday_of_month(
-                current_date, self.weekdays[0], self.week_of_month
+                current_date, self.start_date.weekday(), self.week_of_month
             )
         # Simple monthly: same day of month
-        if current_date.day != self.start_date.day:
-            return False
-        months_diff = ((current_date.year - self.start_date.year) * 12 +
-                       current_date.month - self.start_date.month)
-        return months_diff % self.interval == 0
+        return current_date.day == self.start_date.day
 
     def _should_include_custom(self, current_date):
         # For custom patterns, we use the basic weekly pattern as fallback
-        return bool(self.weekdays and current_date.weekday() in self.weekdays)
+        return current_date.weekday() in self._normalized_weekdays()
 
     def _should_include_occurrence(self, current_date):
         """Determine whether current_date matches this course's recurrence pattern"""
