@@ -1,6 +1,7 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import ContactForm from "@/components/ui/contact-form.client";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
@@ -8,7 +9,13 @@ import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { RichText } from "@/components/ui/highlight";
 import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
+import { FloatingCta } from "@/components/landing/floating-cta";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import ReCaptchaWrapper from "../recaptcha-provider";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 // Ad campaign version of /implantacion-odoo: same copy and components,
 // trimmed down so the only way forward is the form.
@@ -71,12 +78,12 @@ export default function OdooCampaign() {
 
       {/* HERO IMAGE */}
       <section className="px-6 pt-10 pb-0 md:pt-14 md:pb-0 bg-neutral-100 dark:bg-neutral-800 transition-colors">
-        <div className="relative mx-auto max-w-5xl aspect-[1760/980] overflow-hidden rounded-2xl">
+        <div className="relative mx-auto max-w-5xl aspect-[1760/705] overflow-hidden rounded-2xl">
           <Image
-            src="/static/implantacion-odoo/implantacion_odoo.webp"
+            src="/static/implantacion-odoo/implantacion_odoo_sin_texto.webp"
             alt={content.title}
             width={1760}
-            height={998}
+            height={705}
             sizes="(min-width: 1024px) 1024px, 100vw"
             className="size-full object-cover object-center"
             priority
@@ -196,6 +203,8 @@ export default function OdooCampaign() {
       </section>
 
       <CampaignFooter />
+      <FloatingCta href="https://wa.me/34626270806" label={content.secondaryCtaLabel} />
+      <WhatsAppBubble />
     </div>
   );
 }

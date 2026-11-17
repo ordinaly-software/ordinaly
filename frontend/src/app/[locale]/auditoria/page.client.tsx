@@ -1,6 +1,7 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
@@ -9,7 +10,13 @@ import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { RichText } from "@/components/ui/highlight";
 import { CampaignFooter, CampaignNavbar } from "@/components/campaign/campaign-navbar-footer";
 import GoogleTagManager from "@/components/analytics/google-tag-manager";
+import { FloatingCta } from "@/components/landing/floating-cta";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import ReCaptchaWrapper from "../recaptcha-provider";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 // Ad campaign version of /auditoria-cumplimiento-ia: same copy and components,
 // trimmed down so the only way forward is the form.
@@ -160,6 +167,8 @@ export default function AuditoriaCampaign() {
       </section>
 
       <CampaignFooter />
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
+      <WhatsAppBubble />
     </div>
   );
 }

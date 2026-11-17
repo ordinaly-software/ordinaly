@@ -107,7 +107,7 @@ export default function ImplantacionOdoo() {
             src="/static/implantacion-odoo/implantacion_odoo.webp"
             alt={content.title}
             width={1760}
-            height={998}
+            height={995}
             sizes="(min-width: 1024px) 1024px, 100vw"
             className="size-full object-cover object-center"
             priority
