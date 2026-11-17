@@ -21,7 +21,7 @@ export function HideOnCampaign({ children }: { children: ReactNode }) {
 /** Logo-only navbar: no links, so visitors stay on the page. */
 export function CampaignNavbar() {
   return (
-    <header className="border-b border-[--color-border-subtle] bg-[--swatch--ivory-light] dark:border-[--color-border-strong] dark:bg-[--swatch--slate-dark]">
+    <header className="border-b border-[--color-border-subtle] bg-[#f5f5f7] dark:border-[--color-border-strong] dark:bg-[#0f1012]">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-center gap-2.5 px-6">
         <Image src="/logo_80.webp" alt="" width={36} height={36} priority />
         <span className="text-lg font-bold tracking-wide text-slate-dark dark:text-ivory-light">ORDINALY</span>

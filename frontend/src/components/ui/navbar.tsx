@@ -482,7 +482,7 @@ const Navbar = () => {
       <nav
         ref={navRef}
         aria-label={tCommon("mainNavigation")}
-        className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-xl"
+        className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[#f5f5f7] dark:bg-[#0f1012] backdrop-blur-xl"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] sm:min-h-[52px] gap-4 lg:gap-6">
@@ -633,7 +633,7 @@ const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="xl:hidden bg-[color-mix(in_srgb,var(--swatch--ivory-light)_97%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_97%,transparent)] border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl">
+          <div className="xl:hidden bg-[color-mix(in_srgb,#f5f5f7_97%,transparent)] dark:bg-[color-mix(in_srgb,#0f1012_97%,transparent)] border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl">
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
                 <MobileSection
@@ -835,7 +835,8 @@ const Navbar = () => {
         )}
       </nav>
 
-      <div className="h-[60px] sm:h-[72px] lg:h-[80px]" aria-hidden="true" />
+      {/* Matches the fixed nav's height (min-h + vertical padding + 1px border) so no body background peeks through. */}
+      <div className="h-[57px] sm:h-[69px] lg:h-[73px]" aria-hidden="true" />
 
       <LogoutModal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} onConfirm={handleSignOut} />
     </>
