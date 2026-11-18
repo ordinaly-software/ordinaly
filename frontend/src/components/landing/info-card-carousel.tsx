@@ -5,6 +5,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Carousel } from "@/components/ui/carousel";
 import { IconWhatsApp } from "@/components/ui/brand-icons";
+import { ContactMenu } from "@/components/ui/contact-menu";
+import { Mail, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type InfoCardSize = "sm" | "md" | "lg" | "xl";
@@ -26,13 +28,22 @@ export interface InfoCardItem {
   /** Custom media background (e.g. a live canvas/WebGL effect), takes priority over `image`/`video`. */
   media?: ReactNode;
   ctaLabel?: ReactNode;
-  /** Icon(s) shown next to `ctaLabel`. Defaults to a single WhatsApp icon. */
+  /** Icon(s) shown next to `ctaLabel`. Defaults to a WhatsApp icon (WhatsApp, phone and email with `contactMenu`). */
   ctaIcons?: ReactNode[];
   href?: string;
+  /** Clicking the card opens the contact menu (WhatsApp `href`, phone, email) instead of following `href`. */
+  contactMenu?: boolean;
   onClick?: () => void;
 }
 
 const DEFAULT_CTA_ICONS: ReactNode[] = [<IconWhatsApp key="whatsapp" size={16} className="shrink-0" />];
+const CONTACT_CTA_ICONS: ReactNode[] = [
+  ...DEFAULT_CTA_ICONS,
+  <Phone key="phone" className="h-4 w-4 shrink-0" />,
+  <Mail key="mail" className="h-4 w-4 shrink-0" />,
+];
+
+const getCtaIcons = (item: InfoCardItem) => item.ctaIcons ?? (item.contactMenu ? CONTACT_CTA_ICONS : DEFAULT_CTA_ICONS);
 
 // Only width is parametrized per size — every card shares the same height
 // so the carousel row stays visually aligned.
@@ -116,7 +127,7 @@ function InfoCardTextContent({ item }: { item: InfoCardItem }) {
       )}
       {item.ctaLabel && (
         <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold not-italic text-clay">
-          {item.ctaIcons ?? DEFAULT_CTA_ICONS}
+          {getCtaIcons(item)}
           {item.ctaLabel}
         </span>
       )}
@@ -142,7 +153,7 @@ function InfoCardMediaContent({ item }: { item: InfoCardItem }) {
           )}
           {item.ctaLabel && (
             <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-              {item.ctaIcons ?? DEFAULT_CTA_ICONS}
+              {getCtaIcons(item)}
               {item.ctaLabel}
             </span>
           )}
@@ -169,6 +180,18 @@ export function InfoCard({ item }: { item: InfoCardItem }) {
     CARD_HEIGHT_CLASS,
     WIDTH_CLASSES[item.size ?? "md"],
   );
+
+  if (item.href && item.contactMenu) {
+    return (
+      <ContactMenu whatsappHref={item.href} placement="inset" className={baseClassName}>
+        {({ buttonProps }) => (
+          <button {...buttonProps} className="block h-full w-full text-left">
+            <InfoCardContent item={item} />
+          </button>
+        )}
+      </ContactMenu>
+    );
+  }
 
   if (item.href) {
     return (

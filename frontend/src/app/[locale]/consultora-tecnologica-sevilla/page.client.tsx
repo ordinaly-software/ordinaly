@@ -88,7 +88,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
   return (
     <div className="relative bg-white dark:bg-neutral-900">
       {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-[#FFFBEE] to-[#E6EFFF] dark:from-[--swatch--slate-dark] dark:via-[--swatch--slate-dark] dark:to-[--swatch--slate-medium] px-3 sm:px-10 pt-16">
+      <section id="inicio" className="scroll-mt-24 relative w-full overflow-hidden bg-gradient-to-b from-[#F5F7FF] via-[#FFFBEE] to-[#E6EFFF] dark:from-[--swatch--slate-dark] dark:via-[--swatch--slate-dark] dark:to-[--swatch--slate-medium] px-3 sm:px-10 pt-16">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-24 left-1/4 size-[28rem] rounded-full bg-clay/20 blur-[160px]"
@@ -130,7 +130,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
       </section>
 
       {/* EMPRESA CONSULTORA TECNOLÓGICA EN SEVILLA */}
-      <section className="py-20 px-6 bg-white dark:bg-neutral-900">
+      <section id="consultora" className="scroll-mt-24 py-20 px-6 bg-white dark:bg-neutral-900">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
             {content.sectionTitles?.company}
@@ -223,7 +223,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
       />
 
       {/* SERVICIOS DE CONSULTORA TECNOLÓGICA EN SEVILLA */}
-      <section className="py-20 px-6 bg-white dark:bg-neutral-900">
+      <section id="servicios" className="scroll-mt-24 py-20 px-6 bg-white dark:bg-neutral-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
             {content.sectionTitles?.services}
@@ -258,7 +258,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
 
       {/* FORMACIÓN */}
       {content.training && (
-        <section className="bg-white px-4 pb-10 pt-4 dark:bg-neutral-900 sm:px-6 lg:px-8">
+        <section id="formacion" className="scroll-mt-24 bg-white px-4 pb-10 pt-4 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
@@ -288,14 +288,16 @@ export default function ConsultoraTecnologicaSevillaPage() {
         </section>
       )}
 
-      <FaqAccordion
-        title={content.sectionTitles?.faq}
-        className="bg-white dark:bg-neutral-900"
-        items={content.faq.map((faq) => ({
-          question: faq.question,
-          answer: faq.answer,
-        }))}
-      />
+      <div id="preguntas-frecuentes" className="scroll-mt-24">
+        <FaqAccordion
+          title={content.sectionTitles?.faq}
+          className="bg-white dark:bg-neutral-900"
+          items={content.faq.map((faq) => ({
+            question: faq.question,
+            answer: faq.answer,
+          }))}
+        />
+      </div>
 
       {/* CONTACTO */}
       <section id="formulario" className="bg-black py-20">

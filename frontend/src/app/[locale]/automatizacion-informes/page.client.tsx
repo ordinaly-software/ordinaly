@@ -81,6 +81,7 @@ export default function AutomatizacionInformes() {
           ),
           ctaLabel: pricing.ctaLabel,
           href: pricing.ctaHref,
+          contactMenu: true,
         },
       ]
     : [];

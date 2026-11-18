@@ -20,6 +20,15 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import CourseEditModal from "./admin-course-edit-modal";
 import CourseVisualizationModal from "./admin-course-modal";
+
+// Flatten DRF field errors ({"field": ["msg", ...]}) into a readable message.
+const formatFieldErrors = (errorData: unknown): string => {
+  if (!errorData || typeof errorData !== "object") return "";
+  return Object.values(errorData as Record<string, unknown>)
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
+    .filter((msg): msg is string => typeof msg === "string" && msg.trim() !== "")
+    .join(" ");
+};
 import { PaginationControls } from "@/components/ui/pagination-controls";
 
 export interface Course {
@@ -411,8 +420,8 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-      if (formData.description.length > 2000) {
-        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 2000 })});
+      if (formData.description.length > 10000) {
+        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 10000 })});
         return;
       }
       const bonifiedLink = (formData.bonified_course_link ?? "").trim();
@@ -524,10 +533,15 @@ const AdminCoursesTab = () => {
       formDataToSend.append('end_time', formData.end_time);
       formDataToSend.append('periodicity', formData.periodicity);
       formDataToSend.append('timezone', formData.timezone);
-      formDataToSend.append('weekdays', JSON.stringify(formData.weekdays));
-      if (formData.week_of_month) {
-        formDataToSend.append('week_of_month', formData.week_of_month.toString());
-      }
+      // Only send pattern fields relevant to the selected periodicity so stale
+      // values (hidden in the form) don't alter the generated schedule.
+      const usesWeekdays = formData.periodicity === 'weekly' || formData.periodicity === 'biweekly';
+      formDataToSend.append('weekdays', JSON.stringify(usesWeekdays ? formData.weekdays : []));
+      // Always send week_of_month; an empty value clears it on update (PUT).
+      formDataToSend.append(
+        'week_of_month',
+        formData.periodicity === 'monthly' && formData.week_of_month ? formData.week_of_month.toString() : ''
+      );
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
       formDataToSend.append('max_attendants', String(formData.max_attendants));
@@ -580,7 +594,7 @@ const AdminCoursesTab = () => {
         // Try to show server validation / error message when available
         try {
           const errorData = await response.json();
-          const errMsg = errorData?.detail || errorData?.message || JSON.stringify(errorData);
+          const errMsg = errorData?.detail || errorData?.message || formatFieldErrors(errorData);
           setAlert({ type: 'error', message: errMsg || t(isEdit ? 'messages.updateError' : 'messages.createError') });
         } catch {
           setAlert({ type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError') });

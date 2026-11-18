@@ -51,7 +51,7 @@ class Course(models.Model):
         )
     )
     subtitle = models.CharField(max_length=200, blank=True, default="")
-    description = models.TextField(max_length=2000)
+    description = models.TextField(max_length=10000)
     bonified_course_link = models.URLField(
         max_length=500,
         blank=True,
@@ -188,7 +188,7 @@ class Course(models.Model):
                 return "Weekly" if self.interval == 1 else f"Every {self.interval} weeks"
             return "Biweekly"
 
-        weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+        weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
         if self.periodicity != 'weekly':
             return f"Every other week on {', '.join(weekday_names)}"
         if self.interval == 1:
@@ -196,8 +196,8 @@ class Course(models.Model):
         return f"Every {self.interval} weeks on {', '.join(weekday_names)}"
 
     def _monthly_schedule_description(self):
-        if self.week_of_month is not None and self.weekdays:
-            weekday_name = self.WEEKDAY_CHOICES[self.weekdays[0]][1]
+        if self.week_of_month is not None and self.start_date:
+            weekday_name = self.WEEKDAY_CHOICES[self.start_date.weekday()][1]
             week_name = dict(self.WEEK_OF_MONTH_CHOICES)[self.week_of_month]
             return f"{week_name} {weekday_name} of every month"
         if self.interval == 1:
@@ -206,7 +206,7 @@ class Course(models.Model):
 
     def _custom_schedule_description(self):
         if self.weekdays:
-            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
             return f"Custom schedule: {', '.join(weekday_names)}"
         return "Custom schedule"
 
@@ -248,7 +248,7 @@ class Course(models.Model):
             description.append(f"Interval: Every {self.interval}")
 
         if self.weekdays:
-            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self._normalized_weekdays()]
             description.append(f"Weekdays: {', '.join(weekday_names)}")
 
         if self.week_of_month is not None:
@@ -262,7 +262,7 @@ class Course(models.Model):
 
     def get_calendar_export_data(self, format_type='ics'):
         """Generate calendar export data in various formats"""
-        from urllib.parse import quote
+        from urllib.parse import quote, urlencode
 
         # If start_time or end_time is missing, cannot generate calendar events
         if not self.start_time or not self.end_time:
@@ -272,23 +272,25 @@ class Course(models.Model):
         occurrences = self.get_next_occurrences(limit=50)
 
         if format_type == 'google':
-            # Google Calendar URL format
-            events = []
-            for occurrence in occurrences:
-                start_datetime = f"{occurrence.strftime('%Y%m%d')}T{self.start_time.strftime('%H%M%S')}"
-                end_datetime = f"{occurrence.strftime('%Y%m%d')}T{self.end_time.strftime('%H%M%S')}"
-
-                url = (f"https://calendar.google.com/calendar/render?"
-                       f"action=TEMPLATE&"
-                       f"text={quote(self.title)}&"
-                       f"dates={start_datetime}/{end_datetime}&"
-                       f"details={quote(self.description)}&"
-                       f"location={quote(self.location)}")
-                events.append({
-                    'date': occurrence,
-                    'url': url
-                })
-            return events
+            # Google Calendar URL format: a single (recurring) event template.
+            # Google's TEMPLATE action only creates one event per URL, so the
+            # recurrence is expressed as an RRULE instead of one URL per date.
+            if not occurrences:
+                return []
+            first = occurrences[0]
+            params = {
+                'action': 'TEMPLATE',
+                'text': self.title,
+                'dates': (f"{first.strftime('%Y%m%d')}T{self.start_time.strftime('%H%M%S')}/"
+                          f"{first.strftime('%Y%m%d')}T{self.end_time.strftime('%H%M%S')}"),
+                'details': self._calendar_details_text(),
+                'location': self.location or '',
+            }
+            rrule = self._google_rrule() if len(occurrences) > 1 else None
+            if rrule:
+                params['recur'] = f"RRULE:{rrule}"
+            url = "https://calendar.google.com/calendar/render?" + urlencode(params, quote_via=quote)
+            return [{'date': first, 'url': url}]
 
         elif format_type == 'outlook':
             # Outlook/Office 365 URL format
@@ -301,7 +303,7 @@ class Course(models.Model):
                        f"subject={quote(self.title)}&"
                        f"startdt={start_datetime}&"
                        f"enddt={end_datetime}&"
-                       f"body={quote(self.description)}&"
+                       f"body={quote(self._calendar_details_text())}&"
                        f"location={quote(self.location)}")
                 events.append({
                     'date': occurrence,
@@ -327,9 +329,9 @@ class Course(models.Model):
                     f"UID:course-{self.id}-{i}@ordinaly.ai",
                     f"DTSTART:{start_datetime}",
                     f"DTEND:{end_datetime}",
-                    f"SUMMARY:{self.title}",
-                    f"DESCRIPTION:{self.description}",
-                    f"LOCATION:{self.location}",
+                    f"SUMMARY:{self._ics_escape(self.title)}",
+                    f"DESCRIPTION:{self._ics_escape(self.description)}",
+                    f"LOCATION:{self._ics_escape(self.location)}",
                     "END:VEVENT"
                 ])
 
@@ -338,38 +340,115 @@ class Course(models.Model):
 
         return None
 
+    _RRULE_WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+
+    def _calendar_details_text(self):
+        """Short plain-text event details for calendar links.
+
+        The full Markdown description is too long for a URL (Google shows it
+        percent-encoded) and renders as raw Markdown, so link to the course page.
+        """
+        from django.conf import settings
+        base_url = getattr(settings, 'FRONTEND_BASE_URL', 'https://ordinaly.ai').rstrip('/')
+        parts = [p for p in [self.subtitle, f"{base_url}/formacion/{self.slug}" if self.slug else ''] if p]
+        return '\n\n'.join(parts)
+
+    @staticmethod
+    def _ics_escape(value):
+        """Escape a TEXT value per RFC 5545 (backslash, ; , and newlines)."""
+        value = (value or '').replace('\r\n', '\n').replace('\r', '\n')
+        return (value.replace('\\', '\\\\').replace(';', '\\;')
+                .replace(',', '\\,').replace('\n', '\\n'))
+
+    def _google_rrule(self):
+        """Build an RRULE equivalent to this course's recurrence pattern.
+
+        DTSTART is the first upcoming occurrence, which is always aligned with
+        the pattern, so interval counting starts from it. Excluded dates cannot
+        be expressed in Google's TEMPLATE link and are not included.
+        """
+        until = f"UNTIL={self.end_date.strftime('%Y%m%d')}T235959"
+        interval = self._interval_value()
+        if self.periodicity == 'daily':
+            return f"FREQ=DAILY;INTERVAL={interval};{until}"
+        if self.periodicity in ('weekly', 'biweekly', 'custom'):
+            weekdays = self._normalized_weekdays()
+            if self.periodicity == 'custom':
+                if not weekdays:
+                    return None
+                interval = 1
+            else:
+                weekdays = weekdays or [self.start_date.weekday()]
+                interval *= 2 if self.periodicity == 'biweekly' else 1
+            byday = ','.join(self._RRULE_WEEKDAYS[wd] for wd in weekdays)
+            return f"FREQ=WEEKLY;INTERVAL={interval};BYDAY={byday};WKST=MO;{until}"
+        if self.periodicity == 'monthly':
+            if self.week_of_month is not None:
+                day = self._RRULE_WEEKDAYS[self.start_date.weekday()]
+                return f"FREQ=MONTHLY;INTERVAL={interval};BYDAY={self.week_of_month}{day};{until}"
+            return f"FREQ=MONTHLY;INTERVAL={interval};BYMONTHDAY={self.start_date.day};{until}"
+        return None
+
+    def _normalized_weekdays(self):
+        """Return weekdays as a sorted list of unique ints (0=Monday..6=Sunday).
+
+        Values may arrive as strings (e.g. ["0", "2"]) depending on the input
+        source; invalid entries are ignored.
+        """
+        normalized = set()
+        for value in self.weekdays or []:
+            try:
+                weekday = int(value)
+            except (TypeError, ValueError):
+                continue
+            if 0 <= weekday <= 6:
+                normalized.add(weekday)
+        return sorted(normalized)
+
+    def _interval_value(self):
+        return self.interval if self.interval and self.interval > 0 else 1
+
+    def _months_since_start(self, current_date):
+        return ((current_date.year - self.start_date.year) * 12 +
+                current_date.month - self.start_date.month)
+
     def _should_include_daily(self, current_date):
         days_diff = (current_date - self.start_date).days
-        return days_diff % self.interval == 0
+        return days_diff % self._interval_value() == 0
 
     def _should_include_weekly(self, current_date):
         """Check if current_date matches the weekly/biweekly recurrence pattern"""
-        if not self.weekdays:
-            if current_date.weekday() != self.start_date.weekday():
-                return False
-        elif current_date.weekday() not in self.weekdays:
+        weekdays = self._normalized_weekdays() or [self.start_date.weekday()]
+        if current_date.weekday() not in weekdays:
             return False
 
-        weeks_diff = (current_date - self.start_date).days // 7
-        interval_weeks = (2 if self.periodicity == 'biweekly' else 1) * self.interval
+        # Count whole calendar weeks (Monday-based) since the start week, so all
+        # selected weekdays of an active week are included together. Counting
+        # from start_date itself shifts weekdays before the start weekday into
+        # the wrong week (e.g. biweekly Mon+Wed starting on a Wednesday).
+        start_week = self.start_date - timedelta(days=self.start_date.weekday())
+        current_week = current_date - timedelta(days=current_date.weekday())
+        weeks_diff = (current_week - start_week).days // 7
+        interval_weeks = (2 if self.periodicity == 'biweekly' else 1) * self._interval_value()
         return weeks_diff % interval_weeks == 0
 
     def _should_include_monthly(self, current_date):
-        if self.week_of_month is not None and self.weekdays:
-            # Complex monthly pattern: e.g., "First Monday of every month"
+        if self._months_since_start(current_date) % self._interval_value() != 0:
+            return False
+        if self.week_of_month is not None:
+            # Complex monthly pattern: e.g., "First Monday of every month".
+            # The weekday comes from the start date: the admin UI does not
+            # expose weekdays for monthly courses, so stored weekdays may be
+            # stale values left over from a previous weekly configuration.
             return self._is_nth_weekday_of_month(
-                current_date, self.weekdays[0], self.week_of_month
+                current_date, self.start_date.weekday(), self.week_of_month
             )
         # Simple monthly: same day of month
-        if current_date.day != self.start_date.day:
-            return False
-        months_diff = ((current_date.year - self.start_date.year) * 12 +
-                       current_date.month - self.start_date.month)
-        return months_diff % self.interval == 0
+        return current_date.day == self.start_date.day
 
     def _should_include_custom(self, current_date):
         # For custom patterns, we use the basic weekly pattern as fallback
-        return bool(self.weekdays and current_date.weekday() in self.weekdays)
+        return current_date.weekday() in self._normalized_weekdays()
 
     def _should_include_occurrence(self, current_date):
         """Determine whether current_date matches this course's recurrence pattern"""

@@ -11,6 +11,7 @@ import EnrolledMembers from "@/components/admin/enrolled-members";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { formatDurationHours } from "@/utils/duration";
 
 interface Course {
   id: number;
@@ -315,7 +316,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   {course.start_time ? course.start_time.substring(0, 5) : "-"} - {course.end_time ? course.end_time.substring(0, 5) : "-"}
                 </InfoRow>
                 <InfoRow label={t("details.duration")}>
-                  {course.duration_hours?.toFixed(1)} {t("details.hours")}
+                  {course.duration_hours ? formatDurationHours(course.duration_hours) : "-"}
                 </InfoRow>
                 <InfoRow label={t("details.frequency")}>{t(`form.periodicity.${course.periodicity}`)}</InfoRow>
                 {course.weekdays && course.weekdays.length > 0 && (

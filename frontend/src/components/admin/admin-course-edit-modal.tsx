@@ -296,7 +296,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               {t("form.markdownSupported")}
             </div>
             <div className="text-xs ml-auto">
-              {formData.description.length}/2000
+              {formData.description.length}/10000
             </div>
           </div>
         </div>

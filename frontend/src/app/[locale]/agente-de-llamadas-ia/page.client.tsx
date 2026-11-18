@@ -290,7 +290,7 @@ export default function AgenteDeLlamadasIA() {
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
       {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-[--swatch--slate-dark] text-white">
+      <section id="inicio" className="scroll-mt-24 relative w-full overflow-hidden bg-[--swatch--slate-dark] text-white">
         <div className="absolute inset-0">
           <Strands
             className="h-full w-full"

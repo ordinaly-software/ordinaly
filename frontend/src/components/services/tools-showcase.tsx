@@ -14,6 +14,7 @@ import {
 import { IconN8n, IconOdoo } from "@/components/ui/brand-icons";
 import LogoLoop, { type LogoLoopItem } from "@/components/ui/logo-loop";
 import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
 const ICON_SIZE = 36;
 
@@ -44,9 +45,11 @@ interface ToolsShowcaseProps {
   titleTag?: "h2" | "h3";
   logos?: LogoLoopItem[];
   className?: string;
+  /** Rendered below the logo loop, e.g. a CTA. */
+  children?: ReactNode;
 }
 
-export function ToolsShowcase({ title, titleTag = "h2", logos = toolLogos, className }: ToolsShowcaseProps) {
+export function ToolsShowcase({ title, titleTag = "h2", logos = toolLogos, className, children }: ToolsShowcaseProps) {
   return (
     <section className={cn("w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-12", className)}>
       <div className="rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
@@ -72,6 +75,7 @@ export function ToolsShowcase({ title, titleTag = "h2", logos = toolLogos, class
             className="text-white/80"
           />
         </div>
+        {children}
       </div>
     </section>
   );

@@ -123,6 +123,7 @@ export default function AutomatizacionRedesSocialesPage() {
           ) : undefined,
           ctaLabel: pricing.ctaLabel,
           href: pricing.ctaHref,
+          contactMenu: true,
         },
       ]
     : [];
@@ -169,7 +170,7 @@ export default function AutomatizacionRedesSocialesPage() {
     <div className="relative bg-white dark:bg-neutral-900">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+      <section id="inicio" className="scroll-mt-24 relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
           style={{ backgroundImage: "url('/static/automatizacion-redes-sociales/automatizacion_redes_sociales.webp')" }}
@@ -198,7 +199,7 @@ export default function AutomatizacionRedesSocialesPage() {
       </section>
 
       {/* PLATFORM CARDS */}
-      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900">
+      <section id="plataformas" className="scroll-mt-24 py-14 md:py-16 px-6 bg-white dark:bg-neutral-900">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.cards}
         </h2>
@@ -230,15 +231,17 @@ export default function AutomatizacionRedesSocialesPage() {
         )}
       </section>
 
-      <HowItWorksVideoSection
-        title={content.sectionTitles?.howItWorks}
-        videoUrl="https://www.youtube.com/watch?v=tQ4VBxfKrys"
-        thumbnailSrc="/static/automatizacion-redes-sociales/video_thumbnail.webp"
-        steps={content.steps ?? []}
-      />
+      <div id="como-funciona" className="scroll-mt-24">
+        <HowItWorksVideoSection
+          title={content.sectionTitles?.howItWorks}
+          videoUrl="https://www.youtube.com/watch?v=tQ4VBxfKrys"
+          thumbnailSrc="/static/automatizacion-redes-sociales/video_thumbnail.webp"
+          steps={content.steps ?? []}
+        />
+      </div>
 
       {/* SECURITY + REQUIREMENTS */}
-      <section className="py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900">
+      <section id="seguridad" className="scroll-mt-24 py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.security}
         </h2>
