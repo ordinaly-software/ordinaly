@@ -257,16 +257,18 @@ export default function AuditoriaCumplimientoIa() {
       </section>
 
       {/* FAQS */}
-      <FaqAccordion
-        className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
-        title={content.sectionTitles.technologyFaqs}
-        description={content.sectionTitles.technologyFaqsSubtitle}
-        items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
-          question: faq.question,
-          tag: faq.tag,
-          answer: faq.answer,
-        }))}
-      />
+      <div id="preguntas-frecuentes" className="scroll-mt-24">
+        <FaqAccordion
+          className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
+          title={content.sectionTitles.technologyFaqs}
+          description={content.sectionTitles.technologyFaqsSubtitle}
+          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+            question: faq.question,
+            tag: faq.tag,
+            answer: faq.answer,
+          }))}
+        />
+      </div>
 
       {/* FORM */}
       <section id="formulario">

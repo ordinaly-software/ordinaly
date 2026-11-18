@@ -19,8 +19,8 @@ export async function generateMetadata({
       ? "Implantación de Odoo 20 para empresas y pymes"
       : "Odoo 20 implementation for businesses & SMEs",
     description: isEs
-      ? "Implantamos y actualizamos Odoo 20: análisis funcional, migración de datos, validación técnica y entrega de un entorno operativo, con base VeriFactu España."
-      : "We implement and upgrade Odoo 20: functional analysis, data migration, technical validation and delivery of a live environment, with VeriFactu base setup.",
+      ? "Implantamos y actualizamos Odoo 20: análisis funcional, migración de datos, validación técnica y entrega de un entorno operativo, y VeriFactu España sobre Odoo 18."
+      : "We implement and upgrade Odoo 20: functional analysis, data migration, technical validation and delivery of a live environment, plus VeriFactu setup on Odoo 18.",
     image: "/og/implantacion-odoo.webp",
   });
 }

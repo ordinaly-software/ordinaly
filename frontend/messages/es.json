@@ -172,6 +172,7 @@
       "enrollCta": "Inscríbete",
       "wantNewEdition": "Quiero una nueva edición",
       "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
+      "pastCourseEmailSubject": "Nueva edición del curso {course}",
       "viewDetails": "Ver detalles",
       "viewAllCourses": "Ver todos los cursos",
       "catalogTitle": "Catálogo de formación",
@@ -267,7 +268,13 @@
     "mainNavigation": "Navegación principal",
     "backToHome": "Volver al inicio",
     "next": "Siguiente",
-    "previous": "Anterior"
+    "previous": "Anterior",
+    "floatingContact": {
+      "whatsappDetail": "Respuesta rápida",
+      "call": "Llamar",
+      "email": "Email",
+      "close": "Cerrar"
+    }
   },
   "logoutModal": {
     "title": "Confirmar cerrar sesión",
@@ -1347,6 +1354,7 @@
     "finished": "Finalizado",
     "wantNewEdition": "Quiero una nueva edición",
     "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
+    "pastCourseEmailSubject": "Nueva edición del curso {course}",
     "cta": {
       "title": "¿Listo para avanzar en tu carrera?",
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
@@ -2321,7 +2329,7 @@
       "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en un estándar.",
       "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
-      "n8nCtaLabel": "Aprender más en n8n",
+      "n8nCtaLabel": "Aprende más sobre n8n",
       "secondaryCtaHref": "https://wa.me/34626270806",
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
@@ -2894,7 +2902,7 @@
         ],
         "rows": [
           [
-            "VeriFactu sobre Odoo 20+ ya instalado",
+            "VeriFactu sobre Odoo 18 ya instalado",
             "400€ + IVA",
             "A confirmar"
           ],
@@ -2904,7 +2912,7 @@
             "10 días"
           ],
           [
-            "Implantación de Odoo 20 con VeriFactu incluido",
+            "Implantación de Odoo 18 con VeriFactu incluido",
             "1.160€ + IVA",
             "10 días"
           ]
@@ -2961,12 +2969,12 @@
         {
           "tag": "Precio",
           "question": "¿La implantación de Odoo incluye VeriFactu o hay que pagar aparte?",
-          "answer": "Depende de tu punto de partida. La implantación completa de Odoo 20 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 20 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 20 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
+          "answer": "Depende de tu punto de partida. La implantación completa de Odoo 18 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 20 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 18 y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
         },
         {
           "tag": "VeriFactu",
-          "question": "¿Qué pasa si mi negocio ya usa Odoo 20 y solo necesito VeriFactu?",
-          "answer": "Configuramos VeriFactu sobre tu instalación de Odoo 20 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 20, dínoslo en el formulario y te decimos qué hace falta antes."
+          "question": "¿Qué pasa si mi negocio ya usa Odoo 18 y solo necesito VeriFactu?",
+          "answer": "Configuramos VeriFactu sobre tu instalación de Odoo 18 por 400€ + IVA, sin necesidad de una implantación completa nueva. Si usas otra versión de Odoo, dínoslo en el formulario y te decimos qué hace falta antes."
         },
         {
           "tag": "VeriFactu",
@@ -2992,7 +3000,7 @@
         "title": "Cumplimiento VeriFactu",
         "paragraphs": [
           "VeriFactu es el sistema de facturación certificada que exige la Agencia Tributaria para garantizar que las facturas emitidas son íntegras, están conservadas y son trazables. Se enmarca en la Ley Antifraude 11/2021 y su calendario definitivo, tras el último aplazamiento (Real Decreto-ley 15/2025), es este:",
-          "**Configuramos de manera opcional Odoo Community** con los módulos necesarios para generar facturas con el registro, la huella y el código QR que exige VeriFactu, y programamos las actualizaciones cuando cambie la especificación técnica de la Agencia Tributaria."
+          "**Configuramos de manera opcional Odoo Community 18** con los módulos necesarios para generar facturas con el registro, la huella y el código QR que exige VeriFactu, y programamos las actualizaciones cuando cambie la especificación técnica de la Agencia Tributaria."
         ],
         "deadlines": [
           "__1 de enero de 2027__: sociedades sujetas al Impuesto sobre Sociedades.",
@@ -3158,8 +3166,8 @@
             "imageAlt": "Agentes de voz en consultora tecnológica"
           },
           {
-            "title": "Implantación, migración y consultoría de Odoo 20 + VeriFactu",
-            "description": "Especialistas en la parametrización del ERP Odoo 20. Adaptamos de forma integral el sistema de gestión de tu empresa a las normativas legales vigentes de facturación en España, incluyendo los módulos automatizados de VeriFactu.",
+            "title": "Implantación, migración y consultoría de Odoo + VeriFactu",
+            "description": "Especialistas en la parametrización del ERP Odoo 20. Adaptamos de forma integral el sistema de gestión de tu empresa a las normativas legales vigentes de facturación en España, incluyendo los módulos automatizados de VeriFactu sobre Odoo 18.",
             "ctaLabel": "Implanta Odoo 20 en tu empresa",
             "href": "/implantacion-odoo",
             "image": "/static/servicios/implantacion_odoo.webp",
@@ -3390,6 +3398,25 @@
             "description": "Priorizamos los cambios, los implementamos si lo necesitas y, si quieres, programamos la revisión anual."
           }
         ]
+      }
+    },
+    "gracias": {
+      "title": "¡Gracias! Hemos recibido tu solicitud",
+      "text": "Revisamos tu caso y te contactamos pronto por email o teléfono, sin compromiso.",
+      "homeLabel": "Ir a la web",
+      "related": {
+        "automatizaciones": {
+          "label": "Más sobre automatizaciones con n8n",
+          "href": "/automatizaciones-personalizadas-empresas-n8n"
+        },
+        "auditoria": {
+          "label": "Más sobre el Reglamento europeo de IA",
+          "href": "/auditoria-cumplimiento-ia"
+        },
+        "odoo": {
+          "label": "Más sobre Odoo 20",
+          "href": "/implantacion-odoo"
+        }
       }
     }
   },

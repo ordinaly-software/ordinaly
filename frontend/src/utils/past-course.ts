@@ -24,15 +24,12 @@ export function buildCourseLink(course: CourseReference, origin?: string) {
   return `${baseUrl}/formacion/${encodeURIComponent(String(identifier))}`;
 }
 
-export function openPastCourseWhatsApp(course: CourseReference, t: TranslationFn, translationKey = "pastCourseMessage") {
-  if (typeof window === "undefined") return;
+/** WhatsApp link and email draft asking for a new edition of a past course. */
+export function getPastCourseContact(course: CourseReference, t: TranslationFn) {
   const cleanTitle = cleanCourseTitle(course.title);
-  const courseLink = buildCourseLink(course);
-  const message = t(translationKey, {
-    course: cleanTitle,
-    link: courseLink,
-  });
-  const whatsappUrl = getWhatsAppUrl(message);
-  if (!whatsappUrl) return;
-  window.open(whatsappUrl, "_blank");
+  const message = t("pastCourseMessage", { course: cleanTitle, link: buildCourseLink(course) });
+  return {
+    whatsappHref: getWhatsAppUrl(message),
+    email: { subject: t("pastCourseEmailSubject", { course: cleanTitle }), body: message },
+  };
 }

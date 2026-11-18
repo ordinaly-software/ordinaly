@@ -35,7 +35,8 @@ type FooterGroup = {
   links: FooterLinkItem[];
 };
 
-const Footer = () => {
+/** `hidePageLinks` drops the links to other pages (used on the ad campaign landings). */
+const Footer = ({ hidePageLinks = false }: { hidePageLinks?: boolean }) => {
   const t = useTranslations("home");
   const tCookie = useTranslations("cookie");
   const messages = useMessages();
@@ -86,6 +87,9 @@ const Footer = () => {
       });
     }
 
+    const connectGroup = { title: t("footer.sections.connect"), links: connectLinks };
+    if (hidePageLinks) return [connectGroup];
+
     return [
       {
         title: t("footer.sections.navigate"),
@@ -117,12 +121,9 @@ const Footer = () => {
             { label: t("footer.links.consultants"), href: "/consultora-tecnologica-sevilla" },
           ],
       },
-      {
-        title: t("footer.sections.connect"),
-        links: connectLinks,
-      },
+      connectGroup,
     ];
-  }, [messages, t, whatsappUrl]);
+  }, [messages, t, whatsappUrl, hidePageLinks]);
 
   const utilityLinks = useMemo<FooterLinkItem[]>(
     () => [
@@ -151,7 +152,7 @@ const Footer = () => {
               }}
             />
         </div>
-        <div className="grid gap-4 py-4 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
+        <div className={cn("grid gap-4 py-4 md:grid-cols-2", !hidePageLinks && "xl:grid-cols-[1.35fr_repeat(4,1fr)]")}>
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
               <div>
@@ -191,7 +192,7 @@ const Footer = () => {
               <p className="text-sm font-semibold tracking-[0.14em] text-slate-dark dark:text-ivory-light">
                 {group.title}
               </p>
-              <ul className="mt-4 space-y-3 text-sm">
+              <ul className={cn("mt-4 space-y-3 text-sm", hidePageLinks && "sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3 sm:space-y-0")}>
                 {group.links.map((item) => (
                   <li key={`${group.title}-${item.label}`}>
                     {item.external ? (
@@ -227,7 +228,8 @@ const Footer = () => {
               {t("footer.copyright", { year: currentYear })}
             </p>
 
-            <LocaleSwitcher variant="pill" label={t("footer.utility.language")} />
+            {/* Campaign landings are Spanish-only. */}
+            {!hidePageLinks && <LocaleSwitcher variant="pill" label={t("footer.utility.language")} />}
 
             <div className="inline-flex self-start items-center rounded-full border border-[--color-border-subtle] bg-white/70 p-1 dark:border-white/10 dark:bg-white/[0.04]">
               <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-light dark:text-cloud-medium">

@@ -37,6 +37,8 @@ type ContactFormProps = {
   recaptchaAction?: string;
   recaptchaBadgeId?: string;
   showCommitmentNote?: boolean;
+  /** Where to go after a successful submission, instead of showing the inline success message. */
+  redirectTo?: string;
 };
 
 export default function ContactForm({
@@ -44,6 +46,7 @@ export default function ContactForm({
   recaptchaAction = "contact_form",
   recaptchaBadgeId = "recaptcha-badge-contact",
   showCommitmentNote = false,
+  redirectTo,
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
   const uid = useId();
@@ -141,6 +144,12 @@ export default function ContactForm({
           type: "error",
           message,
         });
+        return;
+      }
+
+      if (redirectTo) {
+        // Full page load (not router.push) so tag managers count it as a page view.
+        window.location.assign(redirectTo);
         return;
       }
 

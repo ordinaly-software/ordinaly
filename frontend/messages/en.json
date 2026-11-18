@@ -171,6 +171,7 @@
       "enrollCta": "Enroll",
       "wantNewEdition": "I want a new edition",
       "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
+      "pastCourseEmailSubject": "New edition of the course {course}",
       "viewDetails": "View details",
       "viewAllCourses": "View all courses",
       "catalogTitle": "Training catalog",
@@ -267,7 +268,13 @@
     "mainNavigation": "Main navigation",
     "backToHome": "Back to home",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "floatingContact": {
+      "whatsappDetail": "Quick reply",
+      "call": "Call",
+      "email": "Email",
+      "close": "Close"
+    }
   },
   "logoutModal": {
     "title": "Confirm sign out",
@@ -1347,6 +1354,7 @@
     "finished": "Finished",
     "wantNewEdition": "I want a new edition",
     "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
+    "pastCourseEmailSubject": "New edition of the course {course}",
     "cta": {
       "title": "Ready to advance your career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
@@ -2321,7 +2329,7 @@
       "description": "We design custom automations with n8n and open-source software: retries, queues, logs and per-node metrics for processes that don't fit a standard tool.",
       "heroCtaLabel": "Tell us your case",
       "secondaryCtaLabel": "Chat on WhatsApp",
-      "n8nCtaLabel": "Learn more on n8n",
+      "n8nCtaLabel": "Learn more about n8n",
       "secondaryCtaHref": "https://wa.me/34626270806",
       "sectionTitles": {
         "whatIsN8N": "What is n8n?",
@@ -2894,7 +2902,7 @@
         ],
         "rows": [
           [
-            "VeriFactu on an existing Odoo 20+ install",
+            "VeriFactu on an existing Odoo 18 install",
             "€400 + VAT",
             "To be confirmed"
           ],
@@ -2904,7 +2912,7 @@
             "10 days"
           ],
           [
-            "Odoo 20 implementation with VeriFactu included",
+            "Odoo 18 implementation with VeriFactu included",
             "€1,160 + VAT",
             "10 days"
           ]
@@ -2961,12 +2969,12 @@
         {
           "tag": "Price",
           "question": "Does the Odoo implementation include VeriFactu or is it charged separately?",
-          "answer": "It depends on your starting point. The full Odoo 20 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 20 without VeriFactu, it is €860 + VAT. And if you already have Odoo 20 or later and only need the VeriFactu setup, it is €400 + VAT."
+          "answer": "It depends on your starting point. The full Odoo 18 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 20 without VeriFactu, it is €860 + VAT. And if you already have Odoo 18 and only need the VeriFactu setup, it is €400 + VAT."
         },
         {
           "tag": "VeriFactu",
-          "question": "What if my business already uses Odoo 20 and I only need VeriFactu?",
-          "answer": "We set up VeriFactu on your Odoo 20 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 20, tell us in the form and we'll let you know what is needed first."
+          "question": "What if my business already uses Odoo 18 and I only need VeriFactu?",
+          "answer": "We set up VeriFactu on your Odoo 18 installation for €400 + VAT, with no need for a new full implementation. If you use another Odoo version, tell us in the form and we'll let you know what is needed first."
         },
         {
           "tag": "VeriFactu",
@@ -2992,7 +3000,7 @@
         "title": "VeriFactu compliance",
         "paragraphs": [
           "VeriFactu is the certified invoicing system required by the Spanish Tax Agency to guarantee that issued invoices are complete, retained and traceable. It falls under Anti-Fraud Law 11/2021, and its final timeline, after the latest postponement (Royal Decree-law 15/2025), is:",
-          "**Optionally, we configure Odoo Community** with the modules needed to issue invoices with the record, hash and QR code that VeriFactu requires, and we schedule updates whenever the Tax Agency's technical specification changes."
+          "**Optionally, we configure Odoo Community 18** with the modules needed to issue invoices with the record, hash and QR code that VeriFactu requires, and we schedule updates whenever the Tax Agency's technical specification changes."
         ],
         "deadlines": [
           "__1 January 2027__: companies subject to Corporate Income Tax.",
@@ -3158,8 +3166,8 @@
             "imageAlt": "Voice agents at a technology consulting firm"
           },
           {
-            "title": "Odoo 20 + VeriFactu implementation, migration and consulting",
-            "description": "Specialists in configuring the Odoo 20 ERP. We fully adapt your company's management system to Spain's current invoicing regulations, including the automated VeriFactu modules.",
+            "title": "Odoo + VeriFactu implementation, migration and consulting",
+            "description": "Specialists in configuring the Odoo 20 ERP. We fully adapt your company's management system to Spain's current invoicing regulations, including the automated VeriFactu modules on Odoo 18.",
             "ctaLabel": "Implement Odoo 20 in your company",
             "href": "/implantacion-odoo",
             "image": "/static/servicios/implantacion_odoo.webp",

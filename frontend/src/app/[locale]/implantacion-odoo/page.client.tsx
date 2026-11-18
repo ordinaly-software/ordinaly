@@ -107,7 +107,7 @@ export default function ImplantacionOdoo() {
             src="/static/implantacion-odoo/implantacion_odoo.webp"
             alt={content.title}
             width={1760}
-            height={998}
+            height={995}
             sizes="(min-width: 1024px) 1024px, 100vw"
             className="size-full object-cover object-center"
             priority
@@ -362,42 +362,44 @@ export default function ImplantacionOdoo() {
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
-        <FaqAccordion
-          className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
-          title={content.sectionTitles?.technologyFaqs}
-          description={content.sectionTitles?.technologyFaqsSubtitle}
-          items={content.technologyFaqs.map(
-            (faq: { tag: string; question: string; answer: string; answerEmphasis?: string; links?: { label: string; href: string }[] }) => ({
-              question: faq.question,
-              tag: faq.tag,
-              answer: faq.answerEmphasis ? (
-                <>
-                  {faq.answer}
-                  <strong>{faq.answerEmphasis}</strong>
-                </>
-              ) : faq.links?.length ? (
-                <>
-                  {faq.answer}
-                  <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                    {faq.links.map((link, i) => (
-                      <a
-                        key={i}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-clay hover:underline"
-                      >
-                        👉 {link.label}
-                      </a>
-                    ))}
-                  </span>
-                </>
-              ) : (
-                faq.answer
-              ),
-            }),
-          )}
-        />
+        <div id="preguntas-frecuentes" className="scroll-mt-24">
+          <FaqAccordion
+            className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
+            title={content.sectionTitles?.technologyFaqs}
+            description={content.sectionTitles?.technologyFaqsSubtitle}
+            items={content.technologyFaqs.map(
+              (faq: { tag: string; question: string; answer: string; answerEmphasis?: string; links?: { label: string; href: string }[] }) => ({
+                question: faq.question,
+                tag: faq.tag,
+                answer: faq.answerEmphasis ? (
+                  <>
+                    {faq.answer}
+                    <strong>{faq.answerEmphasis}</strong>
+                  </>
+                ) : faq.links?.length ? (
+                  <>
+                    {faq.answer}
+                    <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                      {faq.links.map((link, i) => (
+                        <a
+                          key={i}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-clay hover:underline"
+                        >
+                          👉 {link.label}
+                        </a>
+                      ))}
+                    </span>
+                  </>
+                ) : (
+                  faq.answer
+                ),
+              }),
+            )}
+          />
+        </div>
       )}
 
       {/* FORM */}

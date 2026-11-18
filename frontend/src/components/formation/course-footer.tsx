@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { ContactMenu } from "@/components/ui/contact-menu";
+import type { getPastCourseContact } from "@/utils/past-course";
 import { useTranslations } from 'next-intl';
 import { GraduationCap } from 'lucide-react';
 
@@ -14,7 +16,7 @@ interface Props {
   onEnroll: () => void;
   showRequestEdition: boolean;
   hasEnded: boolean;
-  onRequestEdition: () => void;
+  requestEditionContact: ReturnType<typeof getPastCourseContact>;
   requestEditionLabel: string;
   t: ReturnType<typeof useTranslations>;
 }
@@ -28,7 +30,7 @@ const CourseFooter: React.FC<Props> = ({
   onEnroll,
   showRequestEdition,
   hasEnded,
-  onRequestEdition,
+  requestEditionContact,
   requestEditionLabel,
   t,
 }) => {
@@ -39,13 +41,17 @@ const CourseFooter: React.FC<Props> = ({
     <div className="shrink-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[var(--swatch--slate-medium)] px-5 sm:px-8 pt-3 pb-[calc(env(safe-area-inset-bottom)+12px)] shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.06)] lg:hidden">
       <div className="max-w-4xl mx-auto flex flex-col gap-3">
         {showRequestEdition && hasEnded && (
-          <Button
-            onClick={onRequestEdition}
-            className="w-full bg-clay-fill dark:bg-clay-fill hover:bg-clay/80 text-white dark:text-white shadow-lg transition-transform duration-100 active:scale-[0.98] h-12 text-base"
-          >
-            <GraduationCap className="w-5 h-5 mr-2" />
-            {requestEditionLabel}
-          </Button>
+          <ContactMenu whatsappHref={requestEditionContact.whatsappHref} email={requestEditionContact.email}>
+            {({ buttonProps }) => (
+              <Button
+                {...buttonProps}
+                className="w-full bg-clay-fill dark:bg-clay-fill hover:bg-clay/80 text-white dark:text-white shadow-lg transition-transform duration-100 active:scale-[0.98] h-12 text-base"
+              >
+                <GraduationCap className="w-5 h-5 mr-2" />
+                {requestEditionLabel}
+              </Button>
+            )}
+          </ContactMenu>
         )}
         {shouldShowAuth ? (
           <Button

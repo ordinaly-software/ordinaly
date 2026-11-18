@@ -103,6 +103,7 @@ export default function DesarrolloDeAppWebs() {
           ) : undefined,
           ctaLabel: pricing.ctaLabel,
           href: pricing.ctaHref,
+          contactMenu: true,
         },
       ]
     : [];

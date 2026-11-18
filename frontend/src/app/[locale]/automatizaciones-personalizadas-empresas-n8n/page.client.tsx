@@ -2,6 +2,7 @@
 
 import { useMessages } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
   IconBrandGmail,
@@ -17,7 +18,7 @@ import {
   IconFileTypeXls,
   IconWebhook,
   IconClock,
-  IconArrowUpRight,
+  IconArrowRight,
 } from "@tabler/icons-react";
 import { Mail, Phone, Bell } from "lucide-react";
 import Footer from "@/components/ui/footer";
@@ -239,7 +240,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
     <div className="relative bg-white dark:bg-neutral-900">
       {/* HERO — always black with the n8n dot grid, so it opts into the dark palette
           (`dark` class) regardless of the site theme: orange tones inside stay the dark-mode ones. */}
-      <section className="dark relative w-full overflow-hidden bg-[#141414] text-white">
+      <section id="inicio" className="scroll-mt-24 dark relative w-full overflow-hidden bg-[#141414] text-white">
         {/* n8n canvas dot grid */}
         <div
           aria-hidden
@@ -277,17 +278,15 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                 <span className="text-sm">{content.secondaryCtaLabel}</span>
               </a>
 
-              <a
-                href="https://n8n.io"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/blog?category=automatizacion"
                 className="flex flex-col items-start justify-center gap-1.5 rounded-xl px-4 py-3.5 font-semibold bg-white text-neutral-900 shadow-lg transition hover:scale-[1.03] hover:bg-neutral-100"
               >
                 <IconN8n size={18} />
                 <span className="flex items-center gap-1 text-sm">
                   {content.n8nCtaLabel}
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -299,10 +298,12 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
         </div>
       </section>
 
-      <HowItWorksVideoSection title={content.sectionTitles?.howItWorks} videoUrl="https://www.youtube.com/watch?v=BydOXJ-Ojdk" thumbnailSrc="/static/automatizaciones-personalizadas-empresas-n8n/video_thumbnail.webp" steps={content.howItWorksSteps} />
+      <div id="como-funciona" className="scroll-mt-24">
+        <HowItWorksVideoSection title={content.sectionTitles?.howItWorks} videoUrl="https://www.youtube.com/watch?v=BydOXJ-Ojdk" thumbnailSrc="/static/automatizaciones-personalizadas-empresas-n8n/video_thumbnail.webp" steps={content.howItWorksSteps} />
+      </div>
 
       {/* WHAT IS N8N */}
-      <section className="py-24 px-6 bg-white dark:bg-neutral-900">
+      <section id="que-es-n8n" className="scroll-mt-24 py-24 px-6 bg-white dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-16 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-8 tracking-tight dark:text-white">
@@ -318,11 +319,11 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
               )}
             </p>
             <Button variant="outline" size="lg" className="mt-8 gap-2" asChild>
-              <a href="https://n8n.io" target="_blank" rel="noopener noreferrer">
+              <Link href="/blog?category=automatizacion">
                 <IconN8n size={20} />
                 {content.n8nCtaLabel}
-                <IconArrowUpRight size={18} />
-              </a>
+                <IconArrowRight size={18} />
+              </Link>
             </Button>
           </div>
           <div className="flex justify-center md:justify-end">
@@ -343,7 +344,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       )}
 
       {/* INFO CARDS: benefits, vps, observability, team, security, pricing */}
-      <section className="py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="beneficios" className="scroll-mt-24 py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.infocardsTitle}
         </h2>
@@ -352,7 +353,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
 
       {/* CTA BANNER */}
       {content.cta && (
-        <section className="bg-white px-4 pb-10 pt-10 dark:bg-neutral-900 sm:px-6 lg:px-8">
+        <section id="contacto" className="scroll-mt-24 bg-white px-4 pb-10 pt-10 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
@@ -435,14 +436,16 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
         </section>
       )}
 
-      <FaqAccordion
-        className="-mt-8 bg-white dark:bg-neutral-900 sm:-mt-10"
-        title={content.sectionTitles?.faq}
-        items={content.faq.map((faq) => ({
-          question: faq.question,
-          answer: faq.answer,
-        }))}
-      />
+      <div id="preguntas-frecuentes" className="scroll-mt-24">
+        <FaqAccordion
+          className="-mt-8 bg-white dark:bg-neutral-900 sm:-mt-10"
+          title={content.sectionTitles?.faq}
+          items={content.faq.map((faq) => ({
+            question: faq.question,
+            answer: faq.answer,
+          }))}
+        />
+      </div>
 
       {/* FORM */}
       <section id="formulario" className="bg-black py-20">
