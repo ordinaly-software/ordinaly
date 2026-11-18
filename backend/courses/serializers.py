@@ -4,7 +4,24 @@ from .models import Course, Enrollment
 from users.models import CustomUser
 
 
+class NormalizedNewlinesCharField(serializers.CharField):
+    """CharField that converts CRLF/CR line endings to LF before validation.
+
+    Browsers send textarea values with CRLF line endings in multipart form
+    submissions, which inflates the character count past max_length even when
+    the client-side counter (LF-based) is within the limit.
+    """
+
+    def to_internal_value(self, data):
+        value = super().to_internal_value(data)
+        return value.replace('\r\n', '\n').replace('\r', '\n')
+
+
 class CourseSerializer(serializers.ModelSerializer):
+    description = NormalizedNewlinesCharField(
+        max_length=Course._meta.get_field('description').max_length
+    )
+
     def validate_price(self, value):
         if value is not None:
             if value < 0 or value > 999999.99:
@@ -125,7 +142,7 @@ class CourseSerializer(serializers.ModelSerializer):
         try:
             if not obj.weekdays:
                 return []
-            return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj.weekdays]
+            return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj._normalized_weekdays()]
         except Exception:
             return []
 

@@ -14,6 +14,7 @@ import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { getPastCourseContact, buildCourseLink } from '@/utils/past-course';
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import Image from "next/image";
+import { formatDurationHours } from "@/utils/duration";
 
 interface Course {
   id: number;
@@ -470,7 +471,7 @@ const CourseDetailsModal = ({
                   {course.duration_hours && (
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('duration')}</p>
-                      <p className="text-gray-900 dark:text-gray-100">{course.duration_hours} {t('hours')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{formatDurationHours(course.duration_hours)}</p>
                     </div>
                   )}
                 </div>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
+import { formatDurationHours } from "@/utils/duration";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -208,7 +209,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium">
               <Clock className="w-4 h-4 flex-shrink-0" />
               <span className="truncate">
-                {course.duration_hours ? `${course.duration_hours}h` : t("durationSoon")}
+                {course.duration_hours ? formatDurationHours(course.duration_hours) : t("durationSoon")}
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium col-span-2">

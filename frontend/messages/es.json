@@ -783,7 +783,7 @@
         "validation": {
           "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos",
           "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos",
-          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
+          "descriptionRequired": "La descripción es requerida y debe tener 10000 caracteres o menos",
           "imageRequired": "Por favor sube una imagen válida para el curso",
           "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica",
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
