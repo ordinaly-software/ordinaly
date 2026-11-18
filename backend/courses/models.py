@@ -262,7 +262,7 @@ class Course(models.Model):
 
     def get_calendar_export_data(self, format_type='ics'):
         """Generate calendar export data in various formats"""
-        from urllib.parse import quote
+        from urllib.parse import quote, urlencode
 
         # If start_time or end_time is missing, cannot generate calendar events
         if not self.start_time or not self.end_time:
@@ -272,23 +272,25 @@ class Course(models.Model):
         occurrences = self.get_next_occurrences(limit=50)
 
         if format_type == 'google':
-            # Google Calendar URL format
-            events = []
-            for occurrence in occurrences:
-                start_datetime = f"{occurrence.strftime('%Y%m%d')}T{self.start_time.strftime('%H%M%S')}"
-                end_datetime = f"{occurrence.strftime('%Y%m%d')}T{self.end_time.strftime('%H%M%S')}"
-
-                url = (f"https://calendar.google.com/calendar/render?"
-                       f"action=TEMPLATE&"
-                       f"text={quote(self.title)}&"
-                       f"dates={start_datetime}/{end_datetime}&"
-                       f"details={quote(self.description)}&"
-                       f"location={quote(self.location)}")
-                events.append({
-                    'date': occurrence,
-                    'url': url
-                })
-            return events
+            # Google Calendar URL format: a single (recurring) event template.
+            # Google's TEMPLATE action only creates one event per URL, so the
+            # recurrence is expressed as an RRULE instead of one URL per date.
+            if not occurrences:
+                return []
+            first = occurrences[0]
+            params = {
+                'action': 'TEMPLATE',
+                'text': self.title,
+                'dates': (f"{first.strftime('%Y%m%d')}T{self.start_time.strftime('%H%M%S')}/"
+                          f"{first.strftime('%Y%m%d')}T{self.end_time.strftime('%H%M%S')}"),
+                'details': self._calendar_details_text(),
+                'location': self.location or '',
+            }
+            rrule = self._google_rrule() if len(occurrences) > 1 else None
+            if rrule:
+                params['recur'] = f"RRULE:{rrule}"
+            url = "https://calendar.google.com/calendar/render?" + urlencode(params, quote_via=quote)
+            return [{'date': first, 'url': url}]
 
         elif format_type == 'outlook':
             # Outlook/Office 365 URL format
@@ -301,7 +303,7 @@ class Course(models.Model):
                        f"subject={quote(self.title)}&"
                        f"startdt={start_datetime}&"
                        f"enddt={end_datetime}&"
-                       f"body={quote(self.description)}&"
+                       f"body={quote(self._calendar_details_text())}&"
                        f"location={quote(self.location)}")
                 events.append({
                     'date': occurrence,
@@ -327,15 +329,64 @@ class Course(models.Model):
                     f"UID:course-{self.id}-{i}@ordinaly.ai",
                     f"DTSTART:{start_datetime}",
                     f"DTEND:{end_datetime}",
-                    f"SUMMARY:{self.title}",
-                    f"DESCRIPTION:{self.description}",
-                    f"LOCATION:{self.location}",
+                    f"SUMMARY:{self._ics_escape(self.title)}",
+                    f"DESCRIPTION:{self._ics_escape(self.description)}",
+                    f"LOCATION:{self._ics_escape(self.location)}",
                     "END:VEVENT"
                 ])
 
             ics_content.append("END:VCALENDAR")
             return '\n'.join(ics_content)
 
+        return None
+
+    _RRULE_WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU']
+
+    def _calendar_details_text(self):
+        """Short plain-text event details for calendar links.
+
+        The full Markdown description is too long for a URL (Google shows it
+        percent-encoded) and renders as raw Markdown, so link to the course page.
+        """
+        from django.conf import settings
+        base_url = getattr(settings, 'FRONTEND_BASE_URL', 'https://ordinaly.ai').rstrip('/')
+        parts = [p for p in [self.subtitle, f"{base_url}/formacion/{self.slug}" if self.slug else ''] if p]
+        return '\n\n'.join(parts)
+
+    @staticmethod
+    def _ics_escape(value):
+        """Escape a TEXT value per RFC 5545 (backslash, ; , and newlines)."""
+        value = (value or '').replace('\r\n', '\n').replace('\r', '\n')
+        return (value.replace('\\', '\\\\').replace(';', '\\;')
+                .replace(',', '\\,').replace('\n', '\\n'))
+
+    def _google_rrule(self):
+        """Build an RRULE equivalent to this course's recurrence pattern.
+
+        DTSTART is the first upcoming occurrence, which is always aligned with
+        the pattern, so interval counting starts from it. Excluded dates cannot
+        be expressed in Google's TEMPLATE link and are not included.
+        """
+        until = f"UNTIL={self.end_date.strftime('%Y%m%d')}T235959"
+        interval = self._interval_value()
+        if self.periodicity == 'daily':
+            return f"FREQ=DAILY;INTERVAL={interval};{until}"
+        if self.periodicity in ('weekly', 'biweekly', 'custom'):
+            weekdays = self._normalized_weekdays()
+            if self.periodicity == 'custom':
+                if not weekdays:
+                    return None
+                interval = 1
+            else:
+                weekdays = weekdays or [self.start_date.weekday()]
+                interval *= 2 if self.periodicity == 'biweekly' else 1
+            byday = ','.join(self._RRULE_WEEKDAYS[wd] for wd in weekdays)
+            return f"FREQ=WEEKLY;INTERVAL={interval};BYDAY={byday};WKST=MO;{until}"
+        if self.periodicity == 'monthly':
+            if self.week_of_month is not None:
+                day = self._RRULE_WEEKDAYS[self.start_date.weekday()]
+                return f"FREQ=MONTHLY;INTERVAL={interval};BYDAY={self.week_of_month}{day};{until}"
+            return f"FREQ=MONTHLY;INTERVAL={interval};BYMONTHDAY={self.start_date.day};{until}"
         return None
 
     def _normalized_weekdays(self):

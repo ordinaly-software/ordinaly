@@ -2616,3 +2616,76 @@ class RecurrencePatternRegressionTest(TestCase):
             'DTSTART:21251219T100000',
             'DTSTART:21251231T100000',
         ])
+
+    def _google_params(self, course):
+        from urllib.parse import urlparse, parse_qs
+        events = course.get_calendar_export_data('google')
+        self.assertEqual(len(events), 1)
+        return {k: v[0] for k, v in parse_qs(urlparse(events[0]['url']).query).items()}
+
+    def test_google_export_is_single_recurring_event(self):
+        course = self._course(
+            slug='recurring-course',
+            periodicity='biweekly',
+            start_date=date(2125, 12, 5),
+            end_date=date(2125, 12, 31),
+            weekdays=[0, 2],
+            location='Sevilla',
+        )
+        params = self._google_params(course)
+        self.assertEqual(params['dates'], '21251205T100000/21251205T120000')
+        self.assertEqual(
+            params['recur'],
+            'RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE;WKST=MO;UNTIL=21251231T235959',
+        )
+        self.assertEqual(params['location'], 'Sevilla')
+
+    def test_google_export_details_are_short_plain_text(self):
+        course = self._course(
+            slug='recurring-course',
+            subtitle='Short subtitle',
+            description='## Heading\n' + 'x' * 9000,
+            periodicity='once',
+            start_date=date(2125, 12, 5),
+            end_date=date(2125, 12, 5),
+        )
+        params = self._google_params(course)
+        self.assertNotIn('recur', params)
+        self.assertTrue(params['details'].startswith('Short subtitle\n\n'))
+        self.assertTrue(params['details'].endswith('/formacion/recurring-course'))
+        self.assertNotIn('## Heading', params['details'])
+
+    def test_google_rrule_monthly_patterns(self):
+        nth = self._course(periodicity='monthly', start_date=date(2125, 12, 5),
+                           end_date=date(2126, 6, 30), week_of_month=1)
+        self.assertEqual(
+            nth._google_rrule(),
+            f"FREQ=MONTHLY;INTERVAL=1;BYDAY=1{Course._RRULE_WEEKDAYS[date(2125, 12, 5).weekday()]};"
+            "UNTIL=21260630T235959",
+        )
+        simple = self._course(periodicity='monthly', start_date=date(2125, 12, 5),
+                              end_date=date(2126, 6, 30), interval=2)
+        self.assertEqual(simple._google_rrule(),
+                         'FREQ=MONTHLY;INTERVAL=2;BYMONTHDAY=5;UNTIL=21260630T235959')
+
+    def test_ics_escapes_multiline_description(self):
+        course = self._course(
+            id=1,
+            description='Line 1\r\nLine 2; a, b',
+            periodicity='once',
+            start_date=date(2125, 12, 5),
+            end_date=date(2125, 12, 5),
+            location='',
+        )
+        ics = course.get_calendar_export_data('ics')
+        self.assertIn(r'DESCRIPTION:Line 1\nLine 2\; a\, b', ics)
+
+
+class CourseDescriptionNewlineTest(TestCase):
+    def test_crlf_newlines_do_not_count_towards_max_length(self):
+        # 5000 lines of "x" joined by CRLF = 14999 chars; 9999 after LF normalization
+        description = '\r\n'.join(['x'] * 5000)
+        field = CourseSerializer().fields['description']
+        value = field.run_validation(description)
+        self.assertEqual(value, '\n'.join(['x'] * 5000))
+        self.assertLessEqual(len(value), 10000)

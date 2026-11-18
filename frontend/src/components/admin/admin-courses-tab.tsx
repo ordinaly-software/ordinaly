@@ -20,6 +20,15 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import CourseEditModal from "./admin-course-edit-modal";
 import CourseVisualizationModal from "./admin-course-modal";
+
+// Flatten DRF field errors ({"field": ["msg", ...]}) into a readable message.
+const formatFieldErrors = (errorData: unknown): string => {
+  if (!errorData || typeof errorData !== "object") return "";
+  return Object.values(errorData as Record<string, unknown>)
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
+    .filter((msg): msg is string => typeof msg === "string" && msg.trim() !== "")
+    .join(" ");
+};
 import { PaginationControls } from "@/components/ui/pagination-controls";
 
 export interface Course {
@@ -585,7 +594,7 @@ const AdminCoursesTab = () => {
         // Try to show server validation / error message when available
         try {
           const errorData = await response.json();
-          const errMsg = errorData?.detail || errorData?.message || JSON.stringify(errorData);
+          const errMsg = errorData?.detail || errorData?.message || formatFieldErrors(errorData);
           setAlert({ type: 'error', message: errMsg || t(isEdit ? 'messages.updateError' : 'messages.createError') });
         } catch {
           setAlert({ type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError') });
