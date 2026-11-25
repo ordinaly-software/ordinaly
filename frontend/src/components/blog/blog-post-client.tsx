@@ -12,6 +12,7 @@ import { urlFor } from '@/lib/image';
 import type { BlogPost } from './types';
 import { filterVisibleCategories } from "./category-utils";
 import SharePostButtons from './share-post-buttons';
+import PreferredSourceBadge from './preferred-source-badge';
 import ReadingProgress from './reading-progress';
 import TableOfContents, { type TocItem } from './table-of-contents';
 import { BlogCard, CategoryChipList } from './blog-card';
@@ -156,6 +157,9 @@ export default function BlogPostClient({ post, related = [] }: { post: BlogPost;
               <div className="sticky top-28 flex flex-col items-end gap-2">
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-clay">{t('shareLabel')}</span>
                 <SharePostButtons {...shareProps} showLabel={false} />
+                <div className="mt-3 self-center">
+                  <PreferredSourceBadge width={160} />
+                </div>
               </div>
             )}
           </aside>
@@ -172,7 +176,10 @@ export default function BlogPostClient({ post, related = [] }: { post: BlogPost;
         <div className={`mt-12 ${railGrid}`}>
           <div className="flex flex-col items-center justify-between gap-4 border-t border-ivory-dark pt-6 dark:border-white/10 sm:flex-row xl:col-start-2">
             <span className="text-base font-semibold text-slate-medium dark:text-cloud-light">{t('shareLabel')}</span>
-            {p.slug && <SharePostButtons {...shareProps} showLabel={false} />}
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <PreferredSourceBadge width={150} />
+              {p.slug && <SharePostButtons {...shareProps} showLabel={false} />}
+            </div>
           </div>
         </div>
       </main>
