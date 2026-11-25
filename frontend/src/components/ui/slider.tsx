@@ -1,47 +1,24 @@
 import React from 'react';
-
+import { Switch } from 'glisse';
 
 interface SliderProps {
   checked: boolean;
   onChange: () => void;
   className?: string;
+  /** Kept for API compatibility; glisse draws its own accent colour. */
   color?: 'green' | 'orange' | 'blue' | 'red' | 'clay' | string;
   disabled?: boolean;
+  'aria-label'?: string;
 }
 
-
-const colorClassMap: Record<string, string> = {
-  green: 'bg-clay',
-  orange: 'bg-flame',
-  blue: 'bg-cobalt',
-  red: 'bg-red-600',
-  purple: 'bg-[var(--swatch--clay)]',
-  clay: 'bg-[var(--swatch--clay)]',
-};
-
-const Slider: React.FC<SliderProps> = ({
-  checked,
-  onChange,
-  className = '',
-  color = 'green',
-  disabled = false,
-}) => {
-  const checkedBg = colorClassMap[color] || colorClassMap['green'];
-  return (
-    <button
-      onClick={onChange}
-      disabled={disabled}
-      className={`w-12 h-6 rounded-full transition-colors flex items-center px-0.5 ${
-        checked ? checkedBg : 'bg-muted'
-      } ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className}`}
-    >
-      <div
-        className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200 ${
-          checked ? 'translate-x-6' : 'translate-x-0'
-        }`}
-      ></div>
-    </button>
-  );
-};
+const Slider: React.FC<SliderProps> = ({ checked, onChange, className, disabled = false, 'aria-label': ariaLabel }) => (
+  <Switch
+    checked={checked}
+    onCheckedChange={() => onChange()}
+    disabled={disabled}
+    className={className}
+    aria-label={ariaLabel ?? 'Toggle'}
+  />
+);
 
 export default Slider;

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { Button as GlisseButton } from "glisse"
 
 import { cn } from "@/lib/utils"
 
@@ -62,8 +63,40 @@ export interface ButtonProps
   asChild?: boolean
 }
 
+// Variants drawn by glisse. ghost/link stay native (no surface), and asChild keeps the legacy
+// styling because glisse's Button can't render as a link.
+const glisseVariants: Partial<Record<NonNullable<VariantProps<typeof buttonVariants>["variant"]>, { variant: "glass" | "filled"; tint?: string; destructive?: boolean }>> = {
+  default: { variant: "filled", tint: "var(--btn-default-fill)" },
+  accent: { variant: "filled" },
+  flame: { variant: "filled" },
+  whatsapp: { variant: "filled" },
+  cobalt: { variant: "filled", tint: "var(--swatch--cobalt)" },
+  destructive: { variant: "filled", destructive: true },
+  outline: { variant: "glass" },
+  secondary: { variant: "glass" },
+  special: { variant: "glass" },
+}
+
+const glisseSizes = {
+  default: "!h-12 !px-8 !text-base",
+  sm: "!h-9 !px-5 !text-sm",
+  lg: "!h-14 !px-10 !text-lg",
+  icon: "!h-10 !w-10 !p-0",
+}
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const glisse = !asChild ? glisseVariants[variant ?? "default"] : undefined
+    if (glisse) {
+      return (
+        <GlisseButton
+          ref={ref}
+          {...glisse}
+          className={cn("whitespace-nowrap !rounded-full font-semibold", glisseSizes[size ?? "default"], className)}
+          {...props}
+        />
+      )
+    }
     const Comp = asChild ? Slot : "button"
     return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
   },

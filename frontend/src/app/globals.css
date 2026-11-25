@@ -799,3 +799,16 @@ body::before {
   .dark { --glass-bg: #1c1b1a; --glass-bg-strong: #1c1b1a; --glass-border: rgba(255, 255, 255, 0.5); }
   .glass, .glass-strong { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
+
+/* glisse components use the brand clay instead of iOS blue/green. Its own rules sit in :where(),
+   so these win without extra specificity. --btn-default-fill is the neutral primary button. */
+:root {
+  --lg-fill: var(--swatch--clay-fill);
+  --lg-on: var(--swatch--clay-fill);
+  --btn-default-fill: var(--swatch--slate-dark);
+}
+.dark {
+  --lg-fill: var(--swatch--clay-fill);
+  --lg-on: var(--swatch--clay-fill);
+  --btn-default-fill: var(--swatch--slate-medium);
+}

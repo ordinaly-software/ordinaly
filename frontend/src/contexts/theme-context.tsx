@@ -89,6 +89,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, [functionalAllowed]);
 
+  // glisse reads data-theme, while the site toggles the "dark" class from several places;
+  // mirror the class so glisse components follow the site theme instead of the OS one.
+  useEffect(() => {
+    const root = document.documentElement;
+    const sync = () => root.setAttribute("data-theme", root.classList.contains("dark") ? "dark" : "light");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
   const setTheme = (dark: boolean) => {
     setIsDark(dark);
     applyTheme(dark, functionalAllowed);

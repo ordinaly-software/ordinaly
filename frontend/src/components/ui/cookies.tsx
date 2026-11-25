@@ -5,6 +5,7 @@ import { Shield, BarChart3, Globe, X, Cookie, CookieIcon} from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Slider from "@/components/ui/slider";
+import { Button } from 'glisse';
 import { applyConsentMode, getCookiePreferences } from '@/utils/cookie-manager';
 
 const CookieConsent = () => {
@@ -153,24 +154,16 @@ const CookieConsent = () => {
               </p>
 
               <div className="flex flex-col gap-2">
-                <button
-                  onClick={handleRejectAll}
-                  className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
-                >
+                {/* Reject and accept share the same variant so neither is visually favoured. */}
+                <Button variant="filled" onClick={handleRejectAll} className="w-full">
                   {t('rejectAll')}
-                </button>
-                <button
-                  onClick={handleAcceptAll}
-                  className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
-                >
+                </Button>
+                <Button variant="filled" onClick={handleAcceptAll} className="w-full">
                   {t('acceptAll')}
-                </button>
-                <button
-                  onClick={() => setShowSettings(true)}
-                  className="w-full rounded-full border border-[--color-border-subtle] dark:border-[--color-border-strong] px-4 py-2 text-xs font-medium tracking-wide text-slate-medium dark:text-cloud-medium transition hover:text-slate-dark dark:hover:text-ivory-light"
-                >
+                </Button>
+                <Button variant="glass" onClick={() => setShowSettings(true)} className="w-full">
                   {t('customize')}
-                </button>
+                </Button>
               </div>
             </div>
           ) : (
@@ -223,6 +216,7 @@ const CookieConsent = () => {
                       </div>
                       {toggle ? (
                         <Slider
+                          aria-label={t(`${key}`)}
                           checked={enabled}
                           onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing' | 'thirdParty')}
                         />
@@ -242,18 +236,12 @@ const CookieConsent = () => {
         {/* Footer */}
         {showSettings ? (
           <div className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] px-4 py-3 flex gap-2">
-            <button
-              onClick={() => setShowSettings(false)}
-              className="flex-1 rounded-full border border-[--color-border-subtle] dark:border-[--color-border-strong] px-4 py-2 text-xs font-medium tracking-wide text-slate-medium dark:text-cloud-medium transition hover:text-slate-dark dark:hover:text-ivory-light"
-            >
+            <Button variant="glass" onClick={() => setShowSettings(false)} className="flex-1">
               {t('back')}
-            </button>
-            <button
-              onClick={handleSavePreferences}
-              className="flex-1 rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
-            >
+            </Button>
+            <Button variant="filled" onClick={handleSavePreferences} className="flex-1">
               {t('save')}
-            </button>
+            </Button>
           </div>
         ) : (
           <div className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] px-4 py-2.5">
