@@ -20,6 +20,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
+import MicrosoftClarity from "@/components/analytics/microsoft-clarity";
 import AutoKeywords from "@/components/seo/auto-keywords";
 import CourseSchema from "@/components/seo/course-schema";
 
@@ -190,6 +191,7 @@ export default async function RootLayout({
           </a>
 
           <GoogleAnalyticsLoader />
+          <MicrosoftClarity />
 
           <NextIntlClientProvider>
             <ThemeProvider>

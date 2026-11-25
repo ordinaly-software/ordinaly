@@ -305,7 +305,7 @@
     "thirdPartyExamples": "YouTube, Google Maps",
     "analytics": "Cookies de análisis",
     "analyticsDescription": "Nos ayudan a entender cómo los usuarios interactúan con el sitio web",
-    "analyticsExamples": "Google Analytics, métricas de rendimiento",
+    "analyticsExamples": "Google Analytics, Microsoft Clarity, métricas de rendimiento",
     "marketing": "Cookies de marketing",
     "marketingDescription": "Permiten mostrar anuncios más relevantes basados en tus intereses",
     "marketingExamples": "Publicidad personalizada, seguimiento de campañas",
@@ -991,7 +991,7 @@
           "title": "DESTINATARIOS Y TRANSFERENCIAS INTERNACIONALES",
           "p1": "Para prestar el servicio intervienen los siguientes proveedores externos:",
           "bullet1": "Stripe, para la gestión segura de pagos online",
-          "bullet2": "Google Analytics, para el análisis de uso del sitio web (solo si aceptas las cookies analíticas)",
+          "bullet2": "Google Analytics y Microsoft Clarity, para el análisis de uso del sitio web, incluidos mapas de calor y grabaciones de sesión (solo si aceptas las cookies analíticas)",
           "bullet3": "Google reCAPTCHA, para proteger los formularios frente a spam",
           "bullet4": "Google Maps y YouTube, para mostrar mapas y vídeos incrustados (solo si aceptas el contenido de terceros)",
           "bullet5": "Netlify, para el alojamiento del sitio web",
@@ -1048,7 +1048,7 @@
           "p1": "En este sitio web utilizamos los siguientes tipos de cookies y tecnologías similares:",
           "bullet1": "Técnicas y de preferencias (necesarias): imprescindibles para el funcionamiento de la web y para recordar tu idioma y tema. No requieren consentimiento.",
           "bullet2": "Seguridad: Google reCAPTCHA protege los formularios frente a spam. Solo se carga cuando empiezas a rellenar un formulario.",
-          "bullet3": "Analíticas: estadísticas de uso con Google Analytics. Solo se activan si las aceptas.",
+          "bullet3": "Analíticas: estadísticas de uso con Google Analytics y Microsoft Clarity (mapas de calor y grabaciones de sesión, con los campos de texto enmascarados). Solo se activan si las aceptas.",
           "bullet4": "Contenido de terceros: mapas de Google y vídeos de YouTube incrustados. Solo se cargan si los aceptas.",
           "bullet5": "Marketing: señales de publicidad y medición de campañas de Google Analytics. Solo se activan si las aceptas."
         },
@@ -1059,7 +1059,9 @@
           "bullet2": "_GRECAPTCHA (Seguridad): Google reCAPTCHA, análisis de riesgo para detectar tráfico automatizado. Duración: 6 meses. Proveedor: Google. Solo tras empezar a rellenar un formulario",
           "bullet3": "_ga (Analítica): distingue usuarios únicos en Google Analytics. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
           "bullet4": "_ga_XXXXXXXXXX (Analítica): mantiene el estado de la sesión en Google Analytics 4. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
-          "bullet5": "Cookies de YouTube y Google Maps (Contenido de terceros): las establece Google al cargar el vídeo o el mapa, y su nombre y duración dependen de Google. Solo con consentimiento"
+          "bullet5": "Cookies de YouTube y Google Maps (Contenido de terceros): las establece Google al cargar el vídeo o el mapa, y su nombre y duración dependen de Google. Solo con consentimiento",
+          "bullet6": "_clck (Analítica): identifica al usuario de forma única en Microsoft Clarity. Duración: 1 año. Proveedor: Microsoft. Solo con consentimiento",
+          "bullet7": "_clsk (Analítica): agrupa las páginas vistas en una misma sesión de Microsoft Clarity. Duración: 1 día. Proveedor: Microsoft. Solo con consentimiento"
         },
         "localStorage": {
           "title": "ALMACENAMIENTO LOCAL DEL NAVEGADOR (LocalStorage)",

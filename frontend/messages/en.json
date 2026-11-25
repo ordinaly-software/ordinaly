@@ -305,7 +305,7 @@
     "thirdPartyExamples": "YouTube, Google Maps",
     "analytics": "Analytics cookies",
     "analyticsDescription": "Help us understand how users interact with the site.",
-    "analyticsExamples": "Google Analytics, performance metrics",
+    "analyticsExamples": "Google Analytics, Microsoft Clarity, performance metrics",
     "marketing": "Marketing cookies",
     "marketingDescription": "Allow us to show you more relevant ads based on your interests.",
     "marketingExamples": "Personalized advertising, campaign tracking",
@@ -991,7 +991,7 @@
           "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
           "p1": "The following external providers are involved in providing the service:",
           "bullet1": "Stripe, for secure online payments",
-          "bullet2": "Google Analytics, for website usage analysis (only if you accept analytics cookies)",
+          "bullet2": "Google Analytics and Microsoft Clarity, for website usage analysis, including heatmaps and session recordings (only if you accept analytics cookies)",
           "bullet3": "Google reCAPTCHA, to protect the forms against spam",
           "bullet4": "Google Maps and YouTube, to display embedded maps and videos (only if you accept third-party content)",
           "bullet5": "Netlify, for website hosting",
@@ -1048,7 +1048,7 @@
           "p1": "This website uses the following types of cookies and similar technologies:",
           "bullet1": "Technical and preference cookies (necessary): essential for the website to work and to remember your language and theme. They do not require consent.",
           "bullet2": "Security: Google reCAPTCHA protects the forms against spam. It only loads when you start filling in a form.",
-          "bullet3": "Analytics: usage statistics with Google Analytics. They are only enabled if you accept them.",
+          "bullet3": "Analytics: usage statistics with Google Analytics and Microsoft Clarity (heatmaps and session recordings, with text fields masked). They are only enabled if you accept them.",
           "bullet4": "Third-party content: embedded Google Maps and YouTube videos. They only load if you accept them.",
           "bullet5": "Marketing: advertising signals and campaign measurement in Google Analytics. They are only enabled if you accept them."
         },
@@ -1059,7 +1059,9 @@
           "bullet2": "_GRECAPTCHA (Security): Google reCAPTCHA, risk analysis to detect automated traffic. Duration: 6 months. Provider: Google. Only after you start filling in a form",
           "bullet3": "_ga (Analytics): distinguishes unique users in Google Analytics. Duration: 2 years. Provider: Google. Only with consent",
           "bullet4": "_ga_XXXXXXXXXX (Analytics): keeps the session state in Google Analytics 4. Duration: 2 years. Provider: Google. Only with consent",
-          "bullet5": "YouTube and Google Maps cookies (Third-party content): set by Google when the video or map loads; their name and duration depend on Google. Only with consent"
+          "bullet5": "YouTube and Google Maps cookies (Third-party content): set by Google when the video or map loads; their name and duration depend on Google. Only with consent",
+          "bullet6": "_clck (Analytics): uniquely identifies the user in Microsoft Clarity. Duration: 1 year. Provider: Microsoft. Only with consent",
+          "bullet7": "_clsk (Analytics): groups page views into a single Microsoft Clarity session. Duration: 1 day. Provider: Microsoft. Only with consent"
         },
         "localStorage": {
           "title": "BROWSER LOCAL STORAGE (LocalStorage)",
