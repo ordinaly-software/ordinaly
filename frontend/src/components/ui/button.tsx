@@ -25,13 +25,13 @@ const buttonVariants = cva(
           "bg-clay-fill text-[var(--swatch--ivory-light)] hover:bg-[#9A3C1A] dark:bg-clay-fill dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[#9A3C1A]",
         // Outline: transparent with border
         outline:
-          "border border-[color-mix(in_srgb,var(--swatch--slate-dark)_25%,transparent)] bg-transparent text-[var(--swatch--slate-dark)] hover:bg-oat dark:border-[color-mix(in_srgb,var(--swatch--ivory-light)_25%,transparent)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-white/10",
+          "glass text-[var(--swatch--slate-dark)] hover:bg-white/80 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-white/15",
         // Ghost: no border
         ghost:
           "text-[var(--swatch--slate-dark)] hover:bg-oat dark:text-[var(--swatch--ivory-light)] dark:hover:bg-white/10",
         // Secondary: oat bg
         secondary:
-          "bg-oat text-[var(--swatch--slate-dark)] hover:bg-[var(--swatch--cloud-light)] dark:bg-[var(--swatch--slate-medium)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-light)]",
+          "glass text-[var(--swatch--slate-dark)] hover:bg-white/80 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-white/15",
         // Destructive: unchanged
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
@@ -40,7 +40,7 @@ const buttonVariants = cva(
           "text-[var(--swatch--slate-dark)] underline-offset-4 hover:underline hover:text-[var(--swatch--clay)] dark:text-[var(--swatch--ivory-light)] dark:hover:text-[var(--swatch--clay)]",
         // Special: for cards and modal actions
         special:
-          "bg-[var(--swatch--ivory-medium)] text-[var(--swatch--slate-dark)] hover:bg-oat shadow-sm dark:bg-[var(--swatch--slate-medium)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-light)]",
+          "glass text-[var(--swatch--slate-dark)] hover:bg-white/80 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-white/15",
       },
       size: {
         default: "h-12 px-8 py-3",

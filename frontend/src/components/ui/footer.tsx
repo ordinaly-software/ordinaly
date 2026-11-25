@@ -136,7 +136,7 @@ const Footer = ({ hidePageLinks = false }: { hidePageLinks?: boolean }) => {
   );
 
   return (
-    <footer className="border-t border-[--color-border-subtle] bg-[#f5f5f7] text-slate-medium dark:border-[--color-border-strong] dark:bg-[#0f1012] dark:text-cloud-medium">
+    <footer className="border-t border-[--color-border-subtle] glass-strong !border-x-0 !border-b-0 text-slate-medium dark:text-cloud-medium">
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-10 md:py-12">
         <div className="border-b border-[--color-border-subtle] pb-4 text-sm leading-relaxed dark:border-[--color-border-strong]">
             <Image
