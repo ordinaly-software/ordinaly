@@ -21,12 +21,12 @@ const contentSecurityPolicy = [
   // frame-ancestors is ignored in Report-Only mode (X-Frame-Options: DENY covers it there).
   ...(enforceCsp ? ["frame-ancestors 'none'"] : []),
   // Next.js injects inline bootstrap scripts, so 'unsafe-inline' is required without nonces.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googleadservices.com https://googleads.g.doubleclick.net`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.clarity.ms https://scripts.clarity.ms`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: https: ${cspApiOrigin}`,
   `media-src 'self' blob: https://cdn.sanity.io ${cspApiOrigin}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${cspApiOrigin} https://*.sanity.io https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://*.doubleclick.net https://www.google.es${isDev ? ' ws: wss:' : ''}`,
+  `connect-src 'self' ${cspApiOrigin} https://*.sanity.io https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://*.doubleclick.net https://www.google.es https://*.clarity.ms https://c.bing.com${isDev ? ' ws: wss:' : ''}`,
   'frame-src https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.youtube-nocookie.com https://www.googletagmanager.com https://td.doubleclick.net',
   "worker-src 'self'",
   "manifest-src 'self'",

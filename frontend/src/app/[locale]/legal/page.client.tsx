@@ -301,6 +301,8 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.cookies.cookiesList.bullet3'),
         t('sections.cookies.cookiesList.bullet4'),
         t('sections.cookies.cookiesList.bullet5'),
+        t('sections.cookies.cookiesList.bullet6'),
+        t('sections.cookies.cookiesList.bullet7'),
       ],
     },
     {
